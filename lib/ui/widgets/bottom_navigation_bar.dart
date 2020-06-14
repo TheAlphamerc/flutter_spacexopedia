@@ -13,21 +13,21 @@ class SBottomNavigationBar extends StatelessWidget {
       fixedColor: Colors.black54,
       unselectedItemColor: Colors.black45,
       type: BottomNavigationBarType.fixed,
-      showSelectedLabels: false,
+      // showSelectedLabels: false,
       onTap: (index) {
         counterBloc.add(IndexSelected(index));
       },
       items: [
         BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("")),
+            icon: Icon(Icons.account_balance), title: Text("Launch")),
         BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("")),
+            icon: Icon(Icons.account_balance), title: Text("Roadster")),
         BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("")),
+            icon: Icon(Icons.account_balance), title: Text("Rocket")),
         BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("")),
+            icon: Icon(Icons.account_balance), title: Text("Dragon")),
         BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("")),
+            icon: Icon(Icons.account_balance), title: Text("Core")),
       ],
     );
   }
