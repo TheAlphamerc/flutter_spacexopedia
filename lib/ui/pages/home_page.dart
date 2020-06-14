@@ -2,7 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/navigation/bloc.dart';
-import 'package:flutter_spacexopedia/ui/pages.dart/launch/all_launch.dart';
+import 'package:flutter_spacexopedia/ui/pages/launch/all_launch.dart';
+import 'package:flutter_spacexopedia/ui/pages/roadster/roadster_page.dart';
 import 'package:flutter_spacexopedia/ui/theme/light_color.dart';
 import 'package:flutter_spacexopedia/ui/widgets/bottom_navigation_bar.dart';
 
@@ -28,6 +29,8 @@ class _HomePageState extends State<HomePage> {
           }
           return pageindex == 0
               ? AllLaunch()
+              : pageindex == 1 ?
+              RoadsterPage()
               : Center(child: Text("Page $pageindex"));
         },
       ),

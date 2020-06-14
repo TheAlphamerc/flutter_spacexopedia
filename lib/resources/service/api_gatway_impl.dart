@@ -1,7 +1,8 @@
 import 'package:flutter_spacexopedia/bloc/launches/launch_model.dart';
+import 'package:flutter_spacexopedia/bloc/roadster/roadster_model.dart';
 import 'package:flutter_spacexopedia/helper/config.dart';
-import 'package:flutter_spacexopedia/service/api_gatway.dart';
-import 'package:flutter_spacexopedia/service/dio_client.dart';
+import 'package:flutter_spacexopedia/resources/dio_client.dart';
+import 'package:flutter_spacexopedia/resources/service/api_gatway.dart';
 
 class ApiGatewayImpl implements ApiGateway {
   final DioClient _dioClient;
@@ -21,5 +22,16 @@ class ApiGatewayImpl implements ApiGateway {
       print("Error");
     }
     return launch;
+  }
+
+  @override
+  Future<RoadsterModel> fetchRoadster() async{
+   var response = await _dioClient.get(Config.roadster);
+   if(response.statusCode == 200){
+     return RoadsterModel.fromJson(_dioClient.getJsonBody(response));
+   }
+   else{
+     return null;
+   }
   }
 }

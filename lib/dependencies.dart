@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_spacexopedia/helper/config.dart';
-import 'package:flutter_spacexopedia/service/api_gatway.dart';
-import 'package:flutter_spacexopedia/service/api_gatway_impl.dart';
-import 'package:flutter_spacexopedia/service/dio_client.dart';
-import 'package:flutter_spacexopedia/service/launch_repository.dart';
+import 'package:flutter_spacexopedia/resources/dio_client.dart';
+import 'package:flutter_spacexopedia/resources/repository/launch_repository.dart';
+import 'package:flutter_spacexopedia/resources/service/api_gatway.dart';
+import 'package:flutter_spacexopedia/resources/service/api_gatway_impl.dart';
 import 'package:get_it/get_it.dart';
 
 void setUpDependency() {

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
-import 'package:flutter_spacexopedia/service/launch_repository.dart';
+import 'package:flutter_spacexopedia/resources/repository/launch_repository.dart';
 
 class LaunchBloc extends Bloc<LaunchEvent, LaunchState> {
   final LaunchRepository repository;
