@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
           BlocProvider<LaunchBloc>(
             create: (BuildContext context) =>
                 LaunchBloc(GetIt.instance<LaunchRepository>())
-                  // ..add(LaunchInitial()),
+                  ..add(LaunchInitial()),
           ),
         ],
         child: HomePage(),

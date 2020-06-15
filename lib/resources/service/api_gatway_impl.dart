@@ -1,5 +1,6 @@
 import 'package:flutter_spacexopedia/bloc/launches/launch_model.dart';
 import 'package:flutter_spacexopedia/bloc/roadster/roadster_model.dart';
+import 'package:flutter_spacexopedia/bloc/rocket/rocket_model.dart';
 import 'package:flutter_spacexopedia/helper/config.dart';
 import 'package:flutter_spacexopedia/resources/dio_client.dart';
 import 'package:flutter_spacexopedia/resources/service/api_gatway.dart';
@@ -33,5 +34,21 @@ class ApiGatewayImpl implements ApiGateway {
    else{
      return null;
    }
+  }
+
+  @override
+  Future<List<RocketModel>> fetchAllRocket() async{
+    var response = await _dioClient.get(Config.allRockets);
+     List<RocketModel> rockets = List<RocketModel>();
+    if(response.statusCode == 200){
+      print("Api get data sucess");
+      rockets =  _dioClient.getJsonBodyList(response).map((value){
+            return RocketModel.fromJson(value);
+        }).toList();
+    }
+    else{
+      print("Error");
+    }
+    return rockets;
   }
 }
