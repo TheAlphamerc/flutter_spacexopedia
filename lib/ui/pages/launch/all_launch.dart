@@ -100,7 +100,7 @@ class LaunchCard extends StatelessWidget {
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
-        color: LightColor.skyBlue,
+        color: LightColor.extraLightBlue,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(
