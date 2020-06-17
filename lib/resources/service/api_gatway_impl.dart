@@ -1,3 +1,4 @@
+import 'package:flutter_spacexopedia/bloc/dragon/dragon_model.dart';
 import 'package:flutter_spacexopedia/bloc/launches/launch_model.dart';
 import 'package:flutter_spacexopedia/bloc/roadster/roadster_model.dart';
 import 'package:flutter_spacexopedia/bloc/rocket/rocket_model.dart';
@@ -44,6 +45,22 @@ class ApiGatewayImpl implements ApiGateway {
       print("Api get data sucess");
       rockets =  _dioClient.getJsonBodyList(response).map((value){
             return RocketModel.fromJson(value);
+        }).toList();
+    }
+    else{
+      print("Error");
+    }
+    return rockets;
+  }
+
+  @override
+  Future<List<DragonModel>> fetchAllDragon()async {
+    var response = await _dioClient.get(Config.allDragons);
+     List<DragonModel> rockets = List<DragonModel>();
+    if(response.statusCode == 200){
+      print("Api get data sucess");
+      rockets =  _dioClient.getJsonBodyList(response).map((value){
+            return DragonModel.fromJson(value);
         }).toList();
     }
     else{

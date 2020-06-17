@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/navigation/bloc.dart';
+import 'package:flutter_spacexopedia/ui/pages/dragon/dragon_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/launch/all_launch.dart';
 import 'package:flutter_spacexopedia/ui/pages/roadster/roadster_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/rockets/rocket_page.dart';
@@ -17,9 +18,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int pageindex = 0;
+
+  Widget getPage(int index){
+    switch (index) {
+      case 0: return AllLaunch();
+      case 1: return RoadsterPage();
+      case 2: return RocketPage();
+      case 3: return DragonPage();
+        
+        
+      default: return Center(child: Text("Page $pageindex"));
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(),
       bottomNavigationBar: SBottomNavigationBar(),
       body: BlocBuilder<NavigationBloc, NavigationState>(
@@ -27,13 +41,7 @@ class _HomePageState extends State<HomePage> {
           if (state is SelectPageIndex) {
             pageindex = state.index;
           }
-          return pageindex == 0
-              ? AllLaunch()
-              : pageindex == 1
-                  ? RoadsterPage()
-                  : pageindex == 2
-                      ? RocketPage()
-                      : Center(child: Text("Page $pageindex"));
+          return getPage(pageindex);
         },
       ),
     );
