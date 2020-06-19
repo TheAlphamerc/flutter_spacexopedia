@@ -3,13 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/app_delegate.dart';
 import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
 import 'package:flutter_spacexopedia/bloc/launches/launch_bloc.dart';
-import 'package:flutter_spacexopedia/dependencies.dart';
 import 'package:flutter_spacexopedia/resources/repository/launch_repository.dart';
 import 'package:flutter_spacexopedia/ui/pages/home_page.dart';
 import 'package:flutter_spacexopedia/ui/theme/theme.dart';
 import 'package:get_it/get_it.dart';
 import 'bloc/navigation/navigation_bloc.dart';
-import 'bloc/roadster/index.dart';
 
 void main() {
   BlocSupervisor.delegate = AppBlocDelegate();
