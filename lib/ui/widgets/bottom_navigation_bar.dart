@@ -7,28 +7,39 @@ class SBottomNavigationBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final NavigationBloc counterBloc = BlocProvider.of<NavigationBloc>(context);
-
-    return BottomNavigationBar(
-      fixedColor: Colors.black54,
-      unselectedItemColor: Colors.black45,
-      type: BottomNavigationBarType.fixed,
-      // showSelectedLabels: false,
-      onTap: (index) {
-        counterBloc.add(IndexSelected(index));
+    var pageindex = 0;
+    final NavigationBloc bloc = BlocProvider.of<NavigationBloc>(context);
+    final theme = Theme.of(context);
+    return BlocBuilder<NavigationBloc, NavigationState>(
+      builder: (context, state) {
+        if (state is SelectPageIndex) {
+          pageindex = state.index;
+        }
+        return BottomNavigationBar(
+          selectedIconTheme: IconThemeData(
+            color: theme.colorScheme.secondary,
+          ),
+          type: BottomNavigationBarType.fixed,
+          selectedLabelStyle: TextStyle(color:theme.colorScheme.secondary, fontWeight: FontWeight.bold),
+          unselectedLabelStyle:TextStyle(color:theme.primaryColor,fontWeight: FontWeight.bold),
+          onTap: (index) {
+            bloc.add(IndexSelected(index));
+          },
+          currentIndex: pageindex,
+          items: [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), title: Text("Launch",)),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), title: Text("Roadster")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), title: Text("Rocket")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), title: Text("Dragon")),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.account_balance), title: Text("Core")),
+          ],
+        );
       },
-      items: [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("Launch")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("Roadster")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("Rocket")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("Dragon")),
-        BottomNavigationBarItem(
-            icon: Icon(Icons.account_balance), title: Text("Core")),
-      ],
     );
   }
 }

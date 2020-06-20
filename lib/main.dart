@@ -6,6 +6,7 @@ import 'package:flutter_spacexopedia/bloc/launches/launch_bloc.dart';
 import 'package:flutter_spacexopedia/locator.dart';
 import 'package:flutter_spacexopedia/resources/repository/launch_repository.dart';
 import 'package:flutter_spacexopedia/ui/pages/home_page.dart';
+import 'package:flutter_spacexopedia/ui/theme/custom_theme.dart';
 import 'package:flutter_spacexopedia/ui/theme/theme.dart';
 import 'package:get_it/get_it.dart';
 import 'bloc/navigation/navigation_bloc.dart';
@@ -13,7 +14,12 @@ import 'bloc/navigation/navigation_bloc.dart';
 void main() {
   BlocSupervisor.delegate = AppBlocDelegate();
   setUpDependency();
-  runApp(MyApp());
+  runApp(
+    CustomTheme(
+      initialThemeKey: MyThemeKeys.LIGHT,
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +27,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: AppTheme.lightTheme,
+      theme: CustomTheme.of(context),
       home: MultiBlocProvider(
         providers: [
           BlocProvider<NavigationBloc>(

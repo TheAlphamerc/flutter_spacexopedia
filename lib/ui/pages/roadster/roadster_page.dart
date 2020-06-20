@@ -27,7 +27,9 @@ class _RoadsterPageState extends State<RoadsterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
       body: BlocBuilder<RoadsterBloc, RoadsterState>(
         bloc: _roadsterBloc,
         builder: (

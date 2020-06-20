@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:flutter_spacexopedia/ui/theme/light_color.dart';
+import 'package:flutter_spacexopedia/ui/theme/colors/light_color.dart';
 
 extension TextStyleHelpers on TextStyle {
   TextStyle get bold => copyWith(fontWeight: FontWeight.bold);

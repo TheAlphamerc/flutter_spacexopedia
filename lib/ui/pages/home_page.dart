@@ -7,6 +7,8 @@ import 'package:flutter_spacexopedia/ui/pages/dragon/dragon_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/launch/all_launch.dart';
 import 'package:flutter_spacexopedia/ui/pages/roadster/roadster_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/rockets/rocket_page.dart';
+import 'package:flutter_spacexopedia/ui/theme/custom_theme.dart';
+import 'package:flutter_spacexopedia/ui/theme/theme.dart';
 import 'package:flutter_spacexopedia/ui/widgets/bottom_navigation_bar.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,11 +39,31 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
+  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
+    CustomTheme.instanceOf(buildContext).changeTheme(key);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(),
+      backgroundColor: theme.backgroundColor,
+      appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.bubble_chart),
+            onPressed: () {
+              _changeTheme(context,MyThemeKeys.DARK);
+            },
+          ),
+          IconButton(
+            icon: Icon(Icons.not_listed_location),
+            onPressed: () {
+              _changeTheme(context,MyThemeKeys.LIGHT);
+            },
+          )
+        ],
+      ),
       bottomNavigationBar: SBottomNavigationBar(),
       body: BlocBuilder<NavigationBloc, NavigationState>(
         builder: (context, state) {

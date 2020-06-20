@@ -10,6 +10,7 @@ class RoadsterScreen extends StatelessWidget {
   const RoadsterScreen({Key key, this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -23,7 +24,7 @@ class RoadsterScreen extends StatelessWidget {
                   .typography
                   .dense
                   .headline5
-                  .copyWith(color: Colors.black87),
+                  .copyWith(color: theme.primaryTextTheme.bodyText1.color),
             ).vP8,
             Text(
               model.details,
@@ -31,7 +32,7 @@ class RoadsterScreen extends StatelessWidget {
                   .typography
                   .black
                   .headline5
-                  .copyWith(color: Colors.black87),
+                  .copyWith(color: theme.primaryTextTheme.bodyText1.color),
               textAlign: TextAlign.justify,
             ).p(8),
             Row(
@@ -104,6 +105,7 @@ class _RodsterListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Column(
@@ -117,7 +119,7 @@ class _RodsterListTile extends StatelessWidget {
                     .typography
                     .tall
                     .headline6
-                    .copyWith(color: Colors.black87),
+                    .copyWith(color: theme.primaryTextTheme.bodyText1.color),
               ),
               Text(
                 value,
@@ -125,7 +127,7 @@ class _RodsterListTile extends StatelessWidget {
                     .typography
                     .englishLike
                     .bodyText2
-                    .copyWith(color: Colors.black87),
+                    .copyWith(color: theme.primaryTextTheme.bodyText1.color),
               ),
             ],
           ),

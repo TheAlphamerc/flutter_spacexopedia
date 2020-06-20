@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spacexopedia/bloc/dragon/dragon_model.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
-import 'package:flutter_spacexopedia/ui/theme/light_color.dart';
 import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
 import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 
@@ -28,17 +27,18 @@ class DragonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme  = Theme.of(context);
     return Container(
        margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: theme.cardColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
-        boxShadow:<BoxShadow>[
-          BoxShadow(
-            blurRadius: 10,color: Color(0xffe9e9e9)
-          )
-        ]
+        // boxShadow:<BoxShadow>[
+        //   BoxShadow(
+        //     blurRadius: 10,color: theme.colorScheme.background
+        //   )
+        // ]
       ),
       child: Row(
         children: <Widget>[
@@ -59,19 +59,19 @@ class DragonCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   model.name,
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4,
                 Text(
                   "Rocket Id: ${model.id}",
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4,
                 Text(
                   "First flight date: ${Utils.toformattedDate(model.firstFlight)}",
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4,
                 Text(
                   "Type: ${model.type}",
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4
               ],
             ),

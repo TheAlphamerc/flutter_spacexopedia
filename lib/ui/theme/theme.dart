@@ -1,44 +1,102 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spacexopedia/ui/theme/light_color.dart';
+import 'package:flutter_spacexopedia/ui/theme/colors/dark_color.dart';
+
+import 'colors/light_color.dart';
+
+enum MyThemeKeys { LIGHT, DARK }
 
 class AppTheme {
-  const AppTheme();
+  const AppTheme._();
   static ThemeData lightTheme = ThemeData(
     backgroundColor: LightColor.background,
-    primaryColor: LightColor.purple,
+    primaryColor: LightColor.primaryColor,
     cardTheme: CardTheme(color: LightColor.background),
-    textTheme: TextTheme(headline6: TextStyle(color: LightColor.black)),
     iconTheme: IconThemeData(color: LightColor.iconColor),
-    bottomAppBarColor: LightColor.background,
+    bottomAppBarColor: LightColor.bottomAppBarColor,
     dividerColor: LightColor.grey,
-    primaryTextTheme: TextTheme(
-      bodyText1 : TextStyle(color:LightColor.titleTextColor)
-    )
+    primaryTextTheme:
+        TextTheme(bodyText1: TextStyle(color: LightColor.titleTextColor)),
+    brightness: Brightness.light,
+     tabBarTheme: TabBarTheme(
+      labelPadding: EdgeInsets.symmetric(vertical: 16),
+    ),
+    buttonTheme: ButtonThemeData(
+        buttonColor: LightColor.buttonColor,
+        disabledColor: LightColor.disableButtonColor,
+        textTheme: ButtonTextTheme.normal),
+    colorScheme: ColorScheme(
+        primary: LightColor.primaryColor,
+        primaryVariant: LightColor.primaryLightColor,
+        secondary: LightColor.secondaryColor,
+        secondaryVariant: LightColor.secondaryLightColor,
+        surface: LightColor.background,
+        background: LightColor.background,
+        error: Colors.red,
+        onPrimary: LightColor.titleTextColor,
+        onSecondary: LightColor.black,
+        onSurface: LightColor.titleTextColor,
+        onBackground: LightColor.titleTextColor,
+        onError: LightColor.titleTextColor,
+        brightness: Brightness.dark),
+    textTheme: TextTheme(bodyText1: TextStyle(color: LightColor.black)),
   );
 
-  static TextStyle titleStyle = const TextStyle(color: LightColor.titleTextColor, fontSize: 16);
-  static TextStyle subTitleStyle = const TextStyle(color: LightColor.subTitleTextColor, fontSize: 12);
+  static ThemeData darkTheme = ThemeData(
+    primarySwatch: Colors.blue,
+    backgroundColor: DarkColor.background,
+    primaryColor: DarkColor.primaryColor,
+    primaryColorDark: DarkColor.Darker,
+    primaryColorLight: DarkColor.Brighter,
+    appBarTheme:
+        AppBarTheme(brightness: Brightness.dark, color: DarkColor.Brighter),
+    tabBarTheme: TabBarTheme(
+      labelPadding: EdgeInsets.symmetric(vertical: 16),
+    ),
+    cardTheme: CardTheme(color: DarkColor.background),
+    buttonTheme: ButtonThemeData(
+        buttonColor: DarkColor.buttonColor,
+        disabledColor: DarkColor.disableButtonColor,
+        textTheme: ButtonTextTheme.normal),
+    bottomAppBarColor: DarkColor.bottomAppBarColor,
+    colorScheme: ColorScheme(
+        primary: DarkColor.primaryColor,
+        primaryVariant: DarkColor.primaryLightColor,
+        secondary: DarkColor.secondaryColor,
+        secondaryVariant: DarkColor.secondaryLightColor,
+        surface: DarkColor.background,
+        background: DarkColor.background,
+        error: Colors.red,
+        onPrimary: DarkColor.titleTextColor,
+        onSecondary: DarkColor.white,
+        onSurface: DarkColor.titleTextColor,
+        onBackground: DarkColor.titleTextColor,
+        onError: DarkColor.titleTextColor,
+        brightness: Brightness.dark),
+    textTheme: TextTheme(bodyText1: TextStyle(color: Color(0xffd1d1d0))),
+    iconTheme: IconThemeData(color: DarkColor.lightGrey),
+    brightness: Brightness.dark,
+  );
 
-  static TextStyle h1Style = const TextStyle(fontSize: 24, fontWeight: FontWeight.bold);
-  static TextStyle h2Style = const TextStyle(fontSize: 22);
-  static TextStyle h3Style = const TextStyle(fontSize: 20);
-  static TextStyle h4Style = const TextStyle(fontSize: 18);
-  static TextStyle h5Style = const TextStyle(fontSize: 16);
-  static TextStyle h6Style = const TextStyle(fontSize: 14);
+  static EdgeInsets hPadding = const EdgeInsets.symmetric(
+    horizontal: 16,
+  );
 
-  static List<BoxShadow> shadow =  <BoxShadow>[
-    BoxShadow(color: Color(0xfff8f8f8), blurRadius: 10, spreadRadius: 0, offset: Offset(5,5)),
-  ];
-  
-  
-  static EdgeInsets padding = const EdgeInsets.symmetric(horizontal: 20, vertical: 10);
-
-  static EdgeInsets hPadding = const EdgeInsets.symmetric(horizontal: 10,);
-
-  static double fullWidth(BuildContext context){
+  static double fullWidth(BuildContext context) {
     return MediaQuery.of(context).size.width;
   }
-  static double fullHeight(BuildContext context){
+
+  static double fullHeight(BuildContext context) {
     return MediaQuery.of(context).size.height;
+  }
+
+  static ThemeData getThemeFromKey(MyThemeKeys themeKey) {
+    switch (themeKey) {
+      case MyThemeKeys.LIGHT:
+        return lightTheme;
+      case MyThemeKeys.DARK:
+        return darkTheme;
+      default:
+        return lightTheme;
+    }
   }
 }

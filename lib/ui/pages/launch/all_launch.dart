@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
-import 'package:flutter_spacexopedia/ui/theme/light_color.dart';
 import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
 
@@ -25,14 +24,16 @@ class _AllLaunchState extends State<AllLaunch>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
+      backgroundColor: theme.backgroundColor,
        body: Column(
         children: <Widget>[
           Card(
             elevation: 3,
             margin: EdgeInsets.all(0),
             child: TabBar(
-              labelPadding: EdgeInsets.symmetric(vertical: 16),
+             
               labelStyle: Theme.of(context).typography.dense.button,
               controller: _tabController,
               tabs: <Widget>[
@@ -92,15 +93,17 @@ class LaunchList extends StatelessWidget {
 
 class LaunchCard extends StatelessWidget {
   final Launch model;
+
   const LaunchCard({Key key, this.model}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final theme  = Theme.of(context);
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
       decoration: BoxDecoration(
-        color: LightColor.extraLightBlue,
+        color: theme.cardColor,
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       child: Row(
@@ -122,19 +125,19 @@ class LaunchCard extends StatelessWidget {
               children: <Widget>[
                 Text(
                   model.missionName,
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4,
                 Text(
                   "Flight no: ${model.flightNumber}",
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4,
                 Text(
                   "Launch date: ${Utils.toformattedDate(model.launchDateLocal)}",
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4,
                 Text(
                   "Launch site: ${model.launchSite.siteName}",
-                  style: TextStyle(color: LightColor.black),
+                  style: TextStyle(color: theme.textTheme.bodyText1.color),
                 ).vP4
               ],
             ),
