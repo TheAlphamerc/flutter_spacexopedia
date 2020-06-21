@@ -18,12 +18,11 @@ abstract class DragonEvent extends Equatable {
       DragonRepository(apiGateway: GetIt.instance<ApiGateway>());
 }
 
-class LoadDragonEvent extends DragonEvent {
-  final bool isError;
+class LaunchInitial extends DragonEvent {
   @override
   String toString() => 'LoadDragonEvent';
 
-  LoadDragonEvent(this.isError);
+  LaunchInitial();
 
   @override
   Stream<DragonState> loadAsync(

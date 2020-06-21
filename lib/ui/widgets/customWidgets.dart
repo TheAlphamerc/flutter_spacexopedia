@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 Widget customNetworkImage(String path,{BoxFit fit = BoxFit.contain}){
-  // assert(path!=null);
+  assert(path!=null);
   return CachedNetworkImage(
     fit: fit,
     imageUrl: path,

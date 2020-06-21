@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_spacexopedia/bloc/dragon/index.dart';
@@ -11,9 +12,9 @@ class DragonBloc extends Bloc<DragonEvent, DragonState> {
     return _dragonBlocSingleton;
   }
   DragonBloc._internal();
-  
+
   @override
-  Future<void> close() async{
+  Future<void> close() async {
     // dispose objects
     await super.close();
   }
@@ -26,7 +27,12 @@ class DragonBloc extends Bloc<DragonEvent, DragonState> {
     DragonEvent event,
   ) async* {
     try {
-      yield* event.loadAsync(currentState: state, bloc: this);
+      if (event is LaunchInitial) {
+        yield* event.loadAsync(currentState: state, bloc: this);
+      }
+    } on SocketException catch (_, stackTrace) {
+      developer.log('$_', name: 'DragonBloc', error: _, stackTrace: stackTrace);
+      yield NoConnectionDragonState(_.message);
     } catch (_, stackTrace) {
       developer.log('$_', name: 'DragonBloc', error: _, stackTrace: stackTrace);
       yield state;

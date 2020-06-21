@@ -12,15 +12,15 @@ class SBottomNavigationBar extends StatelessWidget {
     final theme = Theme.of(context);
     return BlocBuilder<NavigationBloc, NavigationState>(
       builder: (context, state) {
-        if (state is SelectPageIndex) {
-          pageindex = state.index;
+        if (state is SelectPageIndex) { 
+          pageindex = state.index;                                                                                                                                                                                                       
         }
         return BottomNavigationBar(
           selectedIconTheme: IconThemeData(
-            color: theme.colorScheme.secondary,
+            // color: theme.colorScheme.secondary,
           ),
           type: BottomNavigationBarType.fixed,
-          selectedLabelStyle: TextStyle(color:theme.colorScheme.secondary, fontWeight: FontWeight.bold),
+          // selectedLabelStyle: TextStyle(color:theme.colorScheme.secondary, fontWeight: FontWeight.bold),
           unselectedLabelStyle:TextStyle(color:theme.primaryColor,fontWeight: FontWeight.bold),
           onTap: (index) {
             bloc.add(IndexSelected(index));

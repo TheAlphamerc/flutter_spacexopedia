@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_spacexopedia/bloc/roadster/index.dart';
@@ -11,9 +12,9 @@ class RoadsterBloc extends Bloc<RoadsterEvent, RoadsterState> {
     return _roadsterBlocSingleton;
   }
   RoadsterBloc._internal();
-  
+
   @override
-  Future<void> close() async{
+  Future<void> close() async {
     // dispose objects
     await super.close();
   }
@@ -26,9 +27,15 @@ class RoadsterBloc extends Bloc<RoadsterEvent, RoadsterState> {
     RoadsterEvent event,
   ) async* {
     try {
-      yield* event.loadAsync(currentState: state, bloc: this);
+      if (event is LaunchInitial) {
+        yield* event.loadAsync(currentState: state, bloc: this);
+      }
+    } on SocketException catch (_, stackTrace) {
+      developer.log('$_', name: 'LaunchBloc', error: _, stackTrace: stackTrace);
+      yield NoConnectionDragonState(_.message);
     } catch (_, stackTrace) {
-      developer.log('$_', name: 'RoadsterBloc', error: _, stackTrace: stackTrace);
+      developer.log('$_',
+          name: 'RoadsterBloc', error: _, stackTrace: stackTrace);
       yield state;
     }
   }

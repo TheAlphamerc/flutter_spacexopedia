@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_spacexopedia/bloc/core/index.dart';
@@ -11,9 +12,9 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     return _coreBlocSingleton;
   }
   CoreBloc._internal();
-  
+
   @override
-  Future<void> close() async{
+  Future<void> close() async {
     // dispose objects
     await super.close();
   }
@@ -26,7 +27,12 @@ class CoreBloc extends Bloc<CoreEvent, CoreState> {
     CoreEvent event,
   ) async* {
     try {
-      yield* event.loadAsync(currentState: state, bloc: this);
+      if (event is LaunchInitial) {
+        yield* event.loadAsync(currentState: state, bloc: this);
+      }
+    } on SocketException catch (_, stackTrace) {
+      developer.log('$_', name: 'CorehBloc', error: _, stackTrace: stackTrace);
+      yield NoConnectionDragonState(_.message);
     } catch (_, stackTrace) {
       developer.log('$_', name: 'CoreBloc', error: _, stackTrace: stackTrace);
       yield state;

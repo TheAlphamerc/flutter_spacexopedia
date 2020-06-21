@@ -17,7 +17,7 @@ abstract class RocketEvent extends Equatable {
       RocketRepository(apiGateway: GetIt.instance<ApiGateway>());
 }
 
-class LoadRocketEvent extends RocketEvent {
+class LaunchInitial extends RocketEvent {
   @override
   Stream<RocketState> loadAsync(
       {RocketState currentState, RocketBloc bloc}) async* {

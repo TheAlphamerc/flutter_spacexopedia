@@ -18,3 +18,20 @@ class LoadedState extends LaunchState {
   @override
   List<Object> get props => ["Total launch ${allLaunch.length}"];
 }
+class ErrorDragonState extends LaunchState {
+  final String errorMessage;
+
+  ErrorDragonState(this.errorMessage);
+
+  @override
+  String toString() => 'ErrorLaunchState';
+}
+class NoConnectionDragonState extends LaunchState {
+  final String errorMessage;
+
+  NoConnectionDragonState(this.errorMessage);
+
+  @override
+  String toString() => 'ErrorLaunchState';
+}
+

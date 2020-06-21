@@ -14,10 +14,12 @@ class AppTheme {
     iconTheme: IconThemeData(color: LightColor.iconColor),
     bottomAppBarColor: LightColor.bottomAppBarColor,
     dividerColor: LightColor.grey,
-    primaryTextTheme:
-        TextTheme(bodyText1: TextStyle(color: LightColor.titleTextColor)),
+    primaryTextTheme: TextTheme(
+        bodyText1: TextStyle(
+      color: LightColor.titleTextColor,
+    )),
     brightness: Brightness.light,
-     tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarTheme(
       labelPadding: EdgeInsets.symmetric(vertical: 16),
     ),
     buttonTheme: ButtonThemeData(
@@ -38,7 +40,9 @@ class AppTheme {
         onBackground: LightColor.titleTextColor,
         onError: LightColor.titleTextColor,
         brightness: Brightness.dark),
-    textTheme: TextTheme(bodyText1: TextStyle(color: LightColor.black)),
+    textTheme: TextTheme(
+      bodyText1: TextStyle(color: LightColor.black),
+    ),
   );
 
   static ThemeData darkTheme = ThemeData(

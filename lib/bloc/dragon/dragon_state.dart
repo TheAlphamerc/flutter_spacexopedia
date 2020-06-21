@@ -25,3 +25,12 @@ class ErrorDragonState extends DragonState {
   @override
   String toString() => 'ErrorDragonState';
 }
+
+class NoConnectionDragonState extends DragonState {
+  final String errorMessage;
+
+  NoConnectionDragonState(this.errorMessage);
+
+  @override
+  String toString() => 'ErrorLaunchState';
+}

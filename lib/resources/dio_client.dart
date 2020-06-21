@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_spacexopedia/exceptions/exceptions.dart';
@@ -31,6 +32,10 @@ class DioClient {
     queryParameters,
   }) async {
     try {
+      var isconnected = await hasInternetConnection();
+      if(!isconnected){
+        throw SocketException("Please check your internet connection");
+      }
       return await _dio.get(
         '$baseEndpoint$endpoint',
         // options: _createOptions(options, session),
@@ -81,8 +86,31 @@ class DioClient {
         return ApiDataNotFoundException();
       case 500:
         return ApiInternalServerException();
+      case 400:
+        throw BadRequestException("Bad request  : ${e.response.statusCode}");
+      case 401:
+      case 403:
+        throw UnauthorisedException("Unauthorised request  : ${e.response.statusCode}");
+      case 404:
+        throw ResourceNotFoundException("Resource not found  : ${e.response.statusCode}");
+      case 500:
       default:
-        return ApiException(e.message);
+        throw FetchDataException(
+            'Error occurred while communicating with server : ${e.response.statusCode}');
     }
   }
+
+  Future<bool> hasInternetConnection() async {
+  try {
+    final result = await InternetAddress.lookup('google.com');
+
+    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  } on SocketException catch (_) {
+    return false;
+  }
+}
 }

@@ -21,3 +21,11 @@ class ErrorRoadsterState extends RoadsterState {
 
   ErrorRoadsterState(this.error);
 }
+class NoConnectionDragonState extends RoadsterState {
+  final String errorMessage;
+
+  NoConnectionDragonState(this.errorMessage);
+
+  @override
+  String toString() => 'ErrorLaunchState';
+}

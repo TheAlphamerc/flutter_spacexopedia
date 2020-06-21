@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/roadster/index.dart';
+import 'package:flutter_spacexopedia/ui/pages/common/error_page.dart';
+import 'package:flutter_spacexopedia/ui/pages/common/no_connection.dart';
+import 'package:flutter_spacexopedia/ui/pages/common/no_content.dart';
 import 'package:flutter_spacexopedia/ui/pages/roadster/roadster_screen.dart';
 
 class RoadsterPage extends StatefulWidget {
@@ -22,7 +25,7 @@ class _RoadsterPageState extends State<RoadsterPage> {
   }
 
   void _load() {
-    _roadsterBloc.add(LoadRoadsterEvent());
+    _roadsterBloc.add(LaunchInitial());
   }
 
   @override
@@ -37,17 +40,22 @@ class _RoadsterPageState extends State<RoadsterPage> {
           RoadsterState currentState,
         ) {
           if (currentState is ErrorRoadsterState) {
-            return Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(currentState.error ?? 'Error'),
-              ],
-            ));
-          }
-          if (currentState is LoadedState) {
+            return ErrorPage(
+              dsiplayReloadButton: true,
+              message: currentState.error,
+              onReload: _load,
+            );
+          } else if (currentState is LoadedState) {
+            if (currentState.model == null) return NoContent();
             return RoadsterScreen(
               model: currentState.model,
+            );
+          } else if (currentState is NoConnectionDragonState) {
+            return NoInternetConnection(
+              message: currentState.errorMessage,
+              onReload: () {
+                BlocProvider.of<RoadsterBloc>(context).add(LaunchInitial());
+              },
             );
           }
           return Center(

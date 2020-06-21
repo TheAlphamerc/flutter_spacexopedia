@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:developer' as developer;
+import 'dart:io';
 
 import 'package:bloc/bloc.dart';
 import 'package:flutter_spacexopedia/bloc/rocket/index.dart';
@@ -26,8 +27,13 @@ class RocketBloc extends Bloc<RocketEvent, RocketState> {
     RocketEvent event,
   ) async* {
     try {
-      yield* event.loadAsync(currentState: state, bloc: this);
-    } catch (_, stackTrace) {
+      if (event is LaunchInitial) {
+        yield* event.loadAsync(currentState: state, bloc: this);
+      }
+    } on SocketException catch (_,stackTrace){
+      developer.log('$_', name: 'LaunchBloc', error: _, stackTrace: stackTrace);
+      yield NoConnectionDragonState(_.message);
+    }catch (_, stackTrace) {
       developer.log('$_', name: 'RocketBloc', error: _, stackTrace: stackTrace);
       yield state;
     }

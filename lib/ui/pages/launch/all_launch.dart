@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
+import 'package:flutter_spacexopedia/ui/pages/common/no_connection.dart';
+import 'package:flutter_spacexopedia/ui/pages/common/no_content.dart';
 import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
 
@@ -27,48 +29,60 @@ class _AllLaunchState extends State<AllLaunch>
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.backgroundColor,
-       body: Column(
+      body: Column(
         children: <Widget>[
           Card(
             elevation: 3,
             margin: EdgeInsets.all(0),
             child: TabBar(
-             
               labelStyle: Theme.of(context).typography.dense.button,
               controller: _tabController,
               tabs: <Widget>[
-                Text("Upcomming",),
+                Text(
+                  "Upcomming",
+                ),
                 Text("Past"),
               ],
             ),
           ),
           Expanded(
-            child:
-                BlocBuilder<LaunchBloc, LaunchState>(builder: (context, state) {
-              if (state is Loading) {
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-              } else if (state is LoadedState) {
-                if (state.allLaunch == null) {
-                  return Container(
-                    child: Text("Data loaded"),
+            child: BlocBuilder<LaunchBloc, LaunchState>(
+              builder: (context, state) {
+                if (state is Loading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
                   );
-                } else {
+                } else if (state is LoadedState) {
+                  if (state.allLaunch == null) return NoContent();
+
                   return TabBarView(
                     controller: _tabController,
                     children: [
                       LaunchList(
-                        list: state.allLaunch.where((element) => element.upcoming).toList(),
+                        list: state.allLaunch
+                            .where((element) => element.upcoming)
+                            .toList(),
                       ),
                       LaunchList(
-                        list: state.allLaunch.where((element) => !element.upcoming).toList(),
+                        list: state.allLaunch
+                            .where((element) => !element.upcoming)
+                            .toList(),
                       )
                     ],
                   );
+                } else if (state is NoConnectionDragonState) {
+                  return NoInternetConnection(
+                    message: state.errorMessage,
+                    onReload: () {
+                      BlocProvider.of<LaunchBloc>(context).add(LaunchInitial());
+                    },
+                  );
                 }
-              }
-            }),
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -98,7 +112,7 @@ class LaunchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme  = Theme.of(context);
+    final theme = Theme.of(context);
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
@@ -117,7 +131,9 @@ class LaunchCard extends StatelessWidget {
                     fit: BoxFit.cover)
                 : SizedBox(),
           ),
-          SizedBox(width: 16,),
+          SizedBox(
+            width: 16,
+          ),
           Expanded(
             flex: 3,
             child: Column(

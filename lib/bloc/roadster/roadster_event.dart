@@ -20,12 +20,12 @@ abstract class RoadsterEvent extends Equatable{
 
 
 
-class LoadRoadsterEvent extends RoadsterEvent {
+class LaunchInitial extends RoadsterEvent {
    
   @override
   String toString() => 'LoadRoadsterEvent';
 
-  LoadRoadsterEvent();
+  LaunchInitial();
 
   @override
   Stream<RoadsterState> loadAsync(

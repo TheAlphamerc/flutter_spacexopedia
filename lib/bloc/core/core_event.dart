@@ -19,13 +19,12 @@ abstract class CoreEvent extends Equatable {
 
 
 
-class LoadCoreEvent extends CoreEvent {
+class LaunchInitial extends CoreEvent {
    
-  final bool isError;
   @override
   String toString() => 'LoadCoreEvent';
 
-  LoadCoreEvent(this.isError);
+  LaunchInitial();
 
   @override
   Stream<CoreState> loadAsync(
