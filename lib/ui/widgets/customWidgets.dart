@@ -1,7 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
-Widget customNetworkImage(String path,{BoxFit fit = BoxFit.contain}){
+Widget customNetworkImage(String path,{BoxFit fit = BoxFit.contain, Widget placeholder}){
   assert(path!=null);
   return CachedNetworkImage(
     fit: fit,
@@ -10,6 +10,6 @@ Widget customNetworkImage(String path,{BoxFit fit = BoxFit.contain}){
     placeholder: (context, url) => Container(
       color: Color(0xffeeeeee),
     ),
-    errorWidget: (context, url, error) => Icon(Icons.error),
+    errorWidget: (context, url, error) => placeholder != null ? placeholder : Icon(Icons.error),
   );
 }

@@ -4,8 +4,7 @@ import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
 import 'package:flutter_spacexopedia/ui/pages/common/no_connection.dart';
 import 'package:flutter_spacexopedia/ui/pages/common/no_content.dart';
-import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
-import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
+import 'package:flutter_spacexopedia/ui/widgets/list_card.dart';
 
 class AllLaunch extends StatefulWidget {
   AllLaunch({Key key}) : super(key: key);
@@ -113,50 +112,28 @@ class LaunchCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-      decoration: BoxDecoration(
-        color: theme.cardColor,
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Row(
+    return ListCard(
+      imagePath: model.links?.missionPatchSmall,
+      imagePadding: EdgeInsets.all(10),
+      bodyContent: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: model.links != null &&
-                    model.links.missionPatchSmall != null &&
-                    model.links.missionPatchSmall.isNotEmpty
-                ? customNetworkImage(model.links.missionPatchSmall,
-                    fit: BoxFit.cover)
-                : SizedBox(),
+          Text(
+            model.missionName,
+            style: TextStyle(color: theme.textTheme.bodyText1.color),
           ),
-          SizedBox(
-            width: 16,
+          Text(
+            "Flight no: ${model.flightNumber}",
+            style: TextStyle(color: theme.textTheme.bodyText1.color),
           ),
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  model.missionName,
-                  style: TextStyle(color: theme.textTheme.bodyText1.color),
-                ).vP4,
-                Text(
-                  "Flight no: ${model.flightNumber}",
-                  style: TextStyle(color: theme.textTheme.bodyText1.color),
-                ).vP4,
-                Text(
-                  "Launch date: ${Utils.toformattedDate(model.launchDateLocal)}",
-                  style: TextStyle(color: theme.textTheme.bodyText1.color),
-                ).vP4,
-                Text(
-                  "Launch site: ${model.launchSite.siteName}",
-                  style: TextStyle(color: theme.textTheme.bodyText1.color),
-                ).vP4
-              ],
-            ),
+          Text(
+            "Launch date: ${Utils.toformattedDate(model.launchDateLocal)}",
+            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          ),
+          Text(
+            "Launch site: ${model.launchSite.siteName}",
+            style: TextStyle(color: theme.textTheme.bodyText1.color),
           )
         ],
       ),

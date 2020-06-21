@@ -14,6 +14,7 @@ class AppTheme {
     iconTheme: IconThemeData(color: LightColor.iconColor),
     bottomAppBarColor: LightColor.bottomAppBarColor,
     dividerColor: LightColor.grey,
+    cardColor: LightColor.grey,
     primaryTextTheme: TextTheme(
         bodyText1: TextStyle(
       color: LightColor.titleTextColor,
@@ -56,7 +57,7 @@ class AppTheme {
     tabBarTheme: TabBarTheme(
       labelPadding: EdgeInsets.symmetric(vertical: 16),
     ),
-    cardTheme: CardTheme(color: DarkColor.background),
+    // cardTheme: CardTheme(color: DarkColor.background),
     buttonTheme: ButtonThemeData(
         buttonColor: DarkColor.buttonColor,
         disabledColor: DarkColor.disableButtonColor,

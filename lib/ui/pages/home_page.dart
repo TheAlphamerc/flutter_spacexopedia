@@ -45,12 +45,42 @@ class _HomePageState extends State<HomePage> {
     BlocProvider.of<NavigationBloc>(context).add(ThemeSelected(key));
   }
 
+  String _getPageName(int index) {
+    switch (index) {
+      case 0:
+        return "Launche";
+      case 1:
+        return "Roadster";
+      case 2:
+        return "Rockets";
+      case 3:
+        return "Dragon";
+      case 4:
+        return "Cores";
+
+      default:
+        return "Empty";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.backgroundColor,
       appBar: AppBar(
+        title: BlocBuilder<NavigationBloc, NavigationState>(
+          builder: (context, state) {
+            if (state is SelectPageIndex) {
+              pageindex = state.index;
+            }
+            return Title(
+              color: theme.textTheme.bodyText1.color,
+              child: Text(_getPageName(pageindex)),
+              title: "Title of screen",
+            );
+          },
+        ),
         actions: <Widget>[
           BlocBuilder<NavigationBloc, NavigationState>(
               builder: (context, state) {
