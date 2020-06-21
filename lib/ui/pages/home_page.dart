@@ -21,7 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int pageindex = 0;
-
+  bool isDarkTheme = true;
   Widget getPage(int index) {
     switch (index) {
       case 0:
@@ -39,8 +39,10 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  void _changeTheme(BuildContext buildContext, MyThemeKeys key) {
+  void _changeTheme(BuildContext buildContext, ThemeType key) {
     CustomTheme.instanceOf(buildContext).changeTheme(key);
+    isDarkTheme = key == ThemeType.DARK;
+    BlocProvider.of<NavigationBloc>(context).add(ThemeSelected(key));
   }
 
   @override
@@ -50,18 +52,19 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: theme.backgroundColor,
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.bubble_chart),
-            onPressed: () {
-              _changeTheme(context,MyThemeKeys.DARK);
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.not_listed_location),
-            onPressed: () {
-              _changeTheme(context,MyThemeKeys.LIGHT);
-            },
-          )
+          BlocBuilder<NavigationBloc, NavigationState>(
+              builder: (context, state) {
+            if (state is SelectTheme) {
+              isDarkTheme = state.type == ThemeType.DARK;
+            }
+            return IconButton(
+              icon: Icon(isDarkTheme ? Icons.event_note : Icons.ev_station),
+              onPressed: () {
+                _changeTheme(
+                    context, isDarkTheme ? ThemeType.LIGHT : ThemeType.DARK);
+              },
+            );
+          }),
         ],
       ),
       bottomNavigationBar: SBottomNavigationBar(),

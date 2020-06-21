@@ -3,7 +3,7 @@ import 'package:flutter_spacexopedia/ui/theme/colors/dark_color.dart';
 
 import 'colors/light_color.dart';
 
-enum MyThemeKeys { LIGHT, DARK }
+enum ThemeType { LIGHT, DARK }
 
 class AppTheme {
   const AppTheme._();
@@ -93,11 +93,11 @@ class AppTheme {
     return MediaQuery.of(context).size.height;
   }
 
-  static ThemeData getThemeFromKey(MyThemeKeys themeKey) {
+  static ThemeData getThemeFromKey(ThemeType themeKey) {
     switch (themeKey) {
-      case MyThemeKeys.LIGHT:
+      case ThemeType.LIGHT:
         return lightTheme;
-      case MyThemeKeys.DARK:
+      case ThemeType.DARK:
         return darkTheme;
       default:
         return lightTheme;

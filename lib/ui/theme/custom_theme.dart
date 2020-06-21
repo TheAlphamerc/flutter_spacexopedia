@@ -4,7 +4,7 @@ import 'package:flutter_spacexopedia/ui/theme/theme.dart';
 
 class CustomTheme extends StatefulWidget {
   final Widget child;
-  final MyThemeKeys initialThemeKey;
+  final ThemeType initialThemeKey;
 
   const CustomTheme({
     Key key,
@@ -30,7 +30,6 @@ class CustomTheme extends StatefulWidget {
 
 class CustomThemeState extends State<CustomTheme> {
   ThemeData _theme;
-
   ThemeData get theme => _theme;
 
   @override
@@ -41,7 +40,7 @@ class CustomThemeState extends State<CustomTheme> {
 
   
 
-  void changeTheme(MyThemeKeys themeKey) {
+  void changeTheme(ThemeType themeKey) {
     setState(() {
       _theme = AppTheme.getThemeFromKey(themeKey);
     });

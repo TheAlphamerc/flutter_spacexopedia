@@ -16,7 +16,7 @@ void main() {
   setUpDependency();
   runApp(
     CustomTheme(
-      initialThemeKey: MyThemeKeys.LIGHT,
+      initialThemeKey: ThemeType.DARK,
       child: MyApp(),
     ),
   );

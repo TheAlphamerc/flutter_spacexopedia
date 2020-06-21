@@ -11,7 +11,11 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
   Stream<NavigationState> mapEventToState(NavigationEvent event) async* {
     if (event is IndexSelected) {
       yield SelectPageIndex(event.index);
-    } else {
+    } else if (event is ThemeSelected){
+       final currentState = state as SelectPageIndex;
+      yield SelectTheme(currentState.index, event.type,);
+    }
+     else {
       throw UnsupportedError('Unsupported event $event');
     }
   }
