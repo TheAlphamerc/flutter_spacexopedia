@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
   String _getPageName(int index) {
     switch (index) {
       case 0:
-        return "Launche";
+        return "Launch";
       case 1:
         return "Roadster";
       case 2:

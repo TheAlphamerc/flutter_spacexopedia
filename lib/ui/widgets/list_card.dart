@@ -14,12 +14,12 @@ class ListCard extends StatelessWidget {
   final bool hideImage;
   final EdgeInsetsGeometry imagePadding;
 
-  Widget _image() {
+  Widget _image(context) {
     if (imagePath == null) {
-      return _noImage();
+      return _noImage(context);
     }
 
-    return Padding(
+    return Padding( 
       padding: imagePadding,
       child: ClipRRect(
         borderRadius: BorderRadius.only(
@@ -27,19 +27,20 @@ class ListCard extends StatelessWidget {
           topLeft: Radius.circular(8),
         ),
         child: customNetworkImage(imagePath,
-            fit: BoxFit.cover, placeholder: _noImage()),
+            fit: BoxFit.cover, placeholder: _noImage(context)),
       ),
     );
   }
 
-  Widget _noImage() {
+  Widget _noImage(context) {
+    final theme = Theme.of(context);
     return ClipRRect(
       borderRadius: BorderRadius.only(
         bottomLeft: Radius.circular(8),
         topLeft: Radius.circular(8),
       ),
       child: Container(
-        color: Color(0xffeeeeee),
+        color: theme.disabledColor, //Color(0xffeeeeee),
         child: Center(
           child: Text(
             "No Photo".toUpperCase(),
@@ -60,7 +61,7 @@ class ListCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       decoration: BoxDecoration(
-        color: theme.cardColor,
+        color: theme.cardColor.withOpacity(.4),
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
       height: 128,
@@ -69,7 +70,7 @@ class ListCard extends StatelessWidget {
           if (!hideImage)
             AspectRatio(
               aspectRatio: 1,
-              child: _image(),
+              child: _image(context),
             ),
           if (!hideImage)
             SizedBox(

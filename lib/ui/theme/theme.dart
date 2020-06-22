@@ -14,7 +14,8 @@ class AppTheme {
     iconTheme: IconThemeData(color: LightColor.iconColor),
     bottomAppBarColor: LightColor.bottomAppBarColor,
     dividerColor: LightColor.grey,
-    cardColor: LightColor.grey,
+    cardColor: LightColor.primaryExtraLightColor,
+    disabledColor: LightColor.grey,
     primaryTextTheme: TextTheme(
         bodyText1: TextStyle(
       color: LightColor.titleTextColor,
