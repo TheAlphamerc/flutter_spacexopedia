@@ -25,9 +25,10 @@ class AppTheme {
       labelPadding: EdgeInsets.symmetric(vertical: 16),
     ),
     buttonTheme: ButtonThemeData(
-        buttonColor: LightColor.buttonColor,
-        disabledColor: LightColor.disableButtonColor,
-        textTheme: ButtonTextTheme.normal),
+      buttonColor: LightColor.buttonColor,
+      disabledColor: LightColor.disableButtonColor,
+      textTheme: ButtonTextTheme.normal,
+    ),
     colorScheme: ColorScheme(
         primary: LightColor.primaryColor,
         primaryVariant: LightColor.primaryLightColor,

@@ -4,6 +4,7 @@ import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
 import 'package:flutter_spacexopedia/ui/pages/common/no_connection.dart';
 import 'package:flutter_spacexopedia/ui/pages/common/no_content.dart';
+import 'package:flutter_spacexopedia/ui/pages/launch/launch_detail.dart';
 import 'package:flutter_spacexopedia/ui/widgets/list_card.dart';
 
 class AllLaunch extends StatefulWidget {
@@ -115,25 +116,34 @@ class LaunchCard extends StatelessWidget {
     return ListCard(
       imagePath: model.links?.missionPatchSmall,
       imagePadding: EdgeInsets.all(10),
+      onPressed: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => LaunchDetail(
+              model: model,
+            ),
+          ),
+        );
+      },
       bodyContent: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           Text(
             model.missionName,
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+            style: TextStyle(color: theme.colorScheme.onSurface),
           ),
           Text(
             "Flight no: ${model.flightNumber}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+            style: TextStyle(color: theme.colorScheme.onSurface),
           ),
           Text(
             "Launch date: ${Utils.toformattedDate(model.launchDateLocal)}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+            style: TextStyle(color: theme.colorScheme.onSurface),
           ),
           Text(
             "Launch site: ${model.launchSite.siteName}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+            style: TextStyle(color: theme.colorScheme.onSurface),
           )
         ],
       ),

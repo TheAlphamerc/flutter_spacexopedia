@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
+import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 
 class ListCard extends StatelessWidget {
   const ListCard({
@@ -8,10 +9,12 @@ class ListCard extends StatelessWidget {
     this.imagePath,
     this.hideImage = false,
     this.imagePadding = const EdgeInsets.all(0),
+    this.onPressed,
   }) : super(key: key);
   final Widget bodyContent;
   final String imagePath;
   final bool hideImage;
+  final Function onPressed;
   final EdgeInsetsGeometry imagePadding;
 
   Widget _image(context) {
@@ -19,7 +22,7 @@ class ListCard extends StatelessWidget {
       return _noImage(context);
     }
 
-    return Padding( 
+    return Padding(
       padding: imagePadding,
       child: ClipRRect(
         borderRadius: BorderRadius.only(
@@ -40,7 +43,7 @@ class ListCard extends StatelessWidget {
         topLeft: Radius.circular(8),
       ),
       child: Container(
-        color: theme.disabledColor, //Color(0xffeeeeee),
+        color: theme.colorScheme.background.withAlpha(80),
         child: Center(
           child: Text(
             "No Photo".toUpperCase(),
@@ -78,7 +81,7 @@ class ListCard extends StatelessWidget {
             ),
           Expanded(flex: 3, child: bodyContent)
         ],
-      ),
+      ).ripple(onPressed, borderRadius: BorderRadius.all(Radius.circular(10))),
     );
   }
 }
