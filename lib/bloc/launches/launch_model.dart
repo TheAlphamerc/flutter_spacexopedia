@@ -69,8 +69,6 @@ class Launch {
 
     factory Launch.fromRawJson(String str) => Launch.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
-
     factory Launch.fromJson(Map<String, dynamic> json) => Launch(
         flightNumber: json["flight_number"] == null ? null : json["flight_number"],
         missionName: json["mission_name"] == null ? null : json["mission_name"],
@@ -105,39 +103,6 @@ class Launch {
         launchDateSource: json["launch_date_source"] == null ? null : launchDateSourceValues.map[json["launch_date_source"]],
     );
 
-    Map<String, dynamic> toJson() => {
-        "flight_number": flightNumber == null ? null : flightNumber,
-        "mission_name": missionName == null ? null : missionName,
-        "mission_id": missionId == null ? null : List<dynamic>.from(missionId.map((x) => x)),
-        "upcoming": upcoming == null ? null : upcoming,
-        "launch_year": launchYear == null ? null : launchYear,
-        "launch_date_unix": launchDateUnix == null ? null : launchDateUnix,
-        "launch_date_utc": launchDateUtc == null ? null : launchDateUtc.toIso8601String(),
-        "launch_date_local": launchDateLocal == null ? null : launchDateLocal.toIso8601String(),
-        "is_tentative": isTentative == null ? null : isTentative,
-        "tentative_max_precision": tentativeMaxPrecision == null ? null : tentativeMaxPrecisionValues.reverse[tentativeMaxPrecision],
-        "tbd": tbd == null ? null : tbd,
-        "launch_window": launchWindow == null ? null : launchWindow,
-        "rocket": rocket == null ? null : rocket.toJson(),
-        "ships": ships == null ? null : List<dynamic>.from(ships.map((x) => x)),
-        "telemetry": telemetry == null ? null : telemetry.toJson(),
-        "launch_site": launchSite == null ? null : launchSite.toJson(),
-        "launch_success": launchSuccess == null ? null : launchSuccess,
-        "launch_failure_details": launchFailureDetails == null ? null : launchFailureDetails.toJson(),
-        "links": links == null ? null : links.toJson(),
-        "details": details == null ? null : details,
-        "static_fire_date_utc": staticFireDateUtc == null ? null : staticFireDateUtc.toIso8601String(),
-        "static_fire_date_unix": staticFireDateUnix == null ? null : staticFireDateUnix,
-        "timeline": timeline == null ? null : Map.from(timeline).map((k, v) => MapEntry<String, dynamic>(k, v == null ? null : v)),
-        "crew": crew == null ? null : List<dynamic>.from(crew.map((x) => x)),
-        "last_date_update": lastDateUpdate == null ? null : lastDateUpdate.toIso8601String(),
-        "last_ll_launch_date": lastLlLaunchDate == null ? null : lastLlLaunchDate.toIso8601String(),
-        "last_ll_update": lastLlUpdate == null ? null : lastLlUpdate.toIso8601String(),
-        "last_wiki_launch_date": lastWikiLaunchDate == null ? null : lastWikiLaunchDate.toIso8601String(),
-        "last_wiki_revision": lastWikiRevision == null ? null : lastWikiRevision,
-        "last_wiki_update": lastWikiUpdate == null ? null : lastWikiUpdate.toIso8601String(),
-        "launch_date_source": launchDateSource == null ? null : launchDateSourceValues.reverse[launchDateSource],
-    };
 }
 
 enum LaunchDateSource { WIKI, LAUNCH_LIBRARY }
@@ -182,53 +147,26 @@ class LaunchSite {
         this.siteNameLong,
     });
 
-    SiteId siteId;
-    SiteName siteName;
-    SiteNameLong siteNameLong;
+    String siteId;
+    String siteName;
+    String siteNameLong;
 
     factory LaunchSite.fromRawJson(String str) => LaunchSite.fromJson(json.decode(str));
 
     String toRawJson() => json.encode(toJson());
 
     factory LaunchSite.fromJson(Map<String, dynamic> json) => LaunchSite(
-        siteId: json["site_id"] == null ? null : siteIdValues.map[json["site_id"]],
-        siteName: json["site_name"] == null ? null : siteNameValues.map[json["site_name"]],
-        siteNameLong: json["site_name_long"] == null ? null : siteNameLongValues.map[json["site_name_long"]],
+        siteId: json["site_id"] == null ? null : json["site_id"],
+        siteName: json["site_name"] == null ? null : json["site_name"],
+        siteNameLong: json["site_name_long"] == null ? null : json["site_name_long"],
     );
 
     Map<String, dynamic> toJson() => {
-        "site_id": siteId == null ? null : siteIdValues.reverse[siteId],
-        "site_name": siteName == null ? null : siteNameValues.reverse[siteName],
-        "site_name_long": siteNameLong == null ? null : siteNameLongValues.reverse[siteNameLong],
+        "site_id": siteId == null ? null : siteId,
+        "site_name": siteName == null ? null : siteName,
+        "site_name_long": siteNameLong == null ? null : siteNameLong,
     };
 }
-
-enum SiteId { KWAJALEIN_ATOLL, CCAFS_SLC_40, VAFB_SLC_4_E, KSC_LC_39_A }
-
-final siteIdValues = EnumValues({
-    "ccafs_slc_40": SiteId.CCAFS_SLC_40,
-    "ksc_lc_39a": SiteId.KSC_LC_39_A,
-    "kwajalein_atoll": SiteId.KWAJALEIN_ATOLL,
-    "vafb_slc_4e": SiteId.VAFB_SLC_4_E
-});
-
-enum SiteName { KWAJALEIN_ATOLL, CCAFS_SLC_40, VAFB_SLC_4_E, KSC_LC_39_A }
-
-final siteNameValues = EnumValues({
-    "CCAFS SLC 40": SiteName.CCAFS_SLC_40,
-    "KSC LC 39A": SiteName.KSC_LC_39_A,
-    "Kwajalein Atoll": SiteName.KWAJALEIN_ATOLL,
-    "VAFB SLC 4E": SiteName.VAFB_SLC_4_E
-});
-
-enum SiteNameLong { KWAJALEIN_ATOLL_OMELEK_ISLAND, CAPE_CANAVERAL_AIR_FORCE_STATION_SPACE_LAUNCH_COMPLEX_40, VANDENBERG_AIR_FORCE_BASE_SPACE_LAUNCH_COMPLEX_4_E, KENNEDY_SPACE_CENTER_HISTORIC_LAUNCH_COMPLEX_39_A }
-
-final siteNameLongValues = EnumValues({
-    "Cape Canaveral Air Force Station Space Launch Complex 40": SiteNameLong.CAPE_CANAVERAL_AIR_FORCE_STATION_SPACE_LAUNCH_COMPLEX_40,
-    "Kennedy Space Center Historic Launch Complex 39A": SiteNameLong.KENNEDY_SPACE_CENTER_HISTORIC_LAUNCH_COMPLEX_39_A,
-    "Kwajalein Atoll Omelek Island": SiteNameLong.KWAJALEIN_ATOLL_OMELEK_ISLAND,
-    "Vandenberg Air Force Base Space Launch Complex 4E": SiteNameLong.VANDENBERG_AIR_FORCE_BASE_SPACE_LAUNCH_COMPLEX_4_E
-});
 
 class Links {
     Links({
@@ -304,34 +242,26 @@ class Rocket {
         this.fairings,
     });
 
-    RocketId rocketId;
-    RocketName rocketName;
-    RocketType rocketType;
+    String rocketId;
+    String rocketName;
+    String rocketType;
     FirstStage firstStage;
     SecondStage secondStage;
     Fairings fairings;
 
     factory Rocket.fromRawJson(String str) => Rocket.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
 
     factory Rocket.fromJson(Map<String, dynamic> json) => Rocket(
-        rocketId: json["rocket_id"] == null ? null : rocketIdValues.map[json["rocket_id"]],
-        rocketName: json["rocket_name"] == null ? null : rocketNameValues.map[json["rocket_name"]],
-        rocketType: json["rocket_type"] == null ? null : rocketTypeValues.map[json["rocket_type"]],
+        rocketId: json["rocket_id"] == null ? null : json["rocket_id"],
+        rocketName: json["rocket_name"] == null ? null : json["rocket_name"],
+        rocketType: json["rocket_type"] == null ? null : json["rocket_type"],
         firstStage: json["first_stage"] == null ? null : FirstStage.fromJson(json["first_stage"]),
         secondStage: json["second_stage"] == null ? null : SecondStage.fromJson(json["second_stage"]),
         fairings: json["fairings"] == null ? null : Fairings.fromJson(json["fairings"]),
     );
 
-    Map<String, dynamic> toJson() => {
-        "rocket_id": rocketId == null ? null : rocketIdValues.reverse[rocketId],
-        "rocket_name": rocketName == null ? null : rocketNameValues.reverse[rocketName],
-        "rocket_type": rocketType == null ? null : rocketTypeValues.reverse[rocketType],
-        "first_stage": firstStage == null ? null : firstStage.toJson(),
-        "second_stage": secondStage == null ? null : secondStage.toJson(),
-        "fairings": fairings == null ? null : fairings.toJson(),
-    };
+  
 }
 
 class Fairings {
@@ -415,8 +345,8 @@ class Core {
     bool reused;
     bool landSuccess;
     bool landingIntent;
-    LandingType landingType;
-    LandingVehicle landingVehicle;
+    String landingType;
+    String landingVehicle;
 
     factory Core.fromRawJson(String str) => Core.fromJson(json.decode(str));
 
@@ -431,8 +361,8 @@ class Core {
         reused: json["reused"] == null ? null : json["reused"],
         landSuccess: json["land_success"] == null ? null : json["land_success"],
         landingIntent: json["landing_intent"] == null ? null : json["landing_intent"],
-        landingType: json["landing_type"] == null ? null : landingTypeValues.map[json["landing_type"]],
-        landingVehicle: json["landing_vehicle"] == null ? null : landingVehicleValues.map[json["landing_vehicle"]],
+        landingType: json["landing_type"] == null ? null : json["landing_type"],
+        landingVehicle: json["landing_vehicle"] == null ? null : json["landing_vehicle"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -444,56 +374,14 @@ class Core {
         "reused": reused == null ? null : reused,
         "land_success": landSuccess == null ? null : landSuccess,
         "landing_intent": landingIntent == null ? null : landingIntent,
-        "landing_type": landingType == null ? null : landingTypeValues.reverse[landingType],
-        "landing_vehicle": landingVehicle == null ? null : landingVehicleValues.reverse[landingVehicle],
+        "landing_type": landingType == null ? null : landingType,
+        "landing_vehicle": landingVehicle == null ? null : landingVehicle,
     };
 }
 
-enum LandingType { OCEAN, ASDS, RTLS }
 
-final landingTypeValues = EnumValues({
-    "ASDS": LandingType.ASDS,
-    "Ocean": LandingType.OCEAN,
-    "RTLS": LandingType.RTLS
-});
 
-enum LandingVehicle { JRTI_1, OCISLY, LZ_1, JRTI, LZ_2, LZ_4 }
-
-final landingVehicleValues = EnumValues({
-    "JRTI": LandingVehicle.JRTI,
-    "JRTI-1": LandingVehicle.JRTI_1,
-    "LZ-1": LandingVehicle.LZ_1,
-    "LZ-2": LandingVehicle.LZ_2,
-    "LZ-4": LandingVehicle.LZ_4,
-    "OCISLY": LandingVehicle.OCISLY
-});
-
-enum RocketId { FALCON1, FALCON9, FALCONHEAVY }
-
-final rocketIdValues = EnumValues({
-    "falcon1": RocketId.FALCON1,
-    "falcon9": RocketId.FALCON9,
-    "falconheavy": RocketId.FALCONHEAVY
-});
-
-enum RocketName { FALCON_1, FALCON_9, FALCON_HEAVY }
-
-final rocketNameValues = EnumValues({
-    "Falcon 1": RocketName.FALCON_1,
-    "Falcon 9": RocketName.FALCON_9,
-    "Falcon Heavy": RocketName.FALCON_HEAVY
-});
-
-enum RocketType { MERLIN_A, MERLIN_C, V1_0, V1_1, FT }
-
-final rocketTypeValues = EnumValues({
-    "FT": RocketType.FT,
-    "Merlin A": RocketType.MERLIN_A,
-    "Merlin C": RocketType.MERLIN_C,
-    "v1.0": RocketType.V1_0,
-    "v1.1": RocketType.V1_1
-});
-
+// 
 class SecondStage {
     SecondStage({
         this.block,
@@ -505,17 +393,12 @@ class SecondStage {
 
     factory SecondStage.fromRawJson(String str) => SecondStage.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
-
     factory SecondStage.fromJson(Map<String, dynamic> json) => SecondStage(
         block: json["block"] == null ? null : json["block"],
         payloads: json["payloads"] == null ? null : List<Payload>.from(json["payloads"].map((x) => Payload.fromJson(x))),
     );
 
-    Map<String, dynamic> toJson() => {
-        "block": block == null ? null : block,
-        "payloads": payloads == null ? null : List<dynamic>.from(payloads.map((x) => x.toJson())),
-    };
+   
 }
 
 class Payload {
@@ -559,8 +442,6 @@ class Payload {
 
     factory Payload.fromRawJson(String str) => Payload.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
-
     factory Payload.fromJson(Map<String, dynamic> json) => Payload(
         payloadId: json["payload_id"] == null ? null : json["payload_id"],
         noradId: json["norad_id"] == null ? null : List<int>.from(json["norad_id"].map((x) => x)),
@@ -581,25 +462,7 @@ class Payload {
         uid: json["uid"] == null ? null : json["uid"],
     );
 
-    Map<String, dynamic> toJson() => {
-        "payload_id": payloadId == null ? null : payloadId,
-        "norad_id": noradId == null ? null : List<dynamic>.from(noradId.map((x) => x)),
-        "reused": reused == null ? null : reused,
-        "customers": customers == null ? null : List<dynamic>.from(customers.map((x) => x)),
-        "nationality": nationality == null ? null : nationality,
-        "manufacturer": manufacturer == null ? null : manufacturer,
-        "payload_type": payloadType == null ? null : payloadTypeValues.reverse[payloadType],
-        "payload_mass_kg": payloadMassKg == null ? null : payloadMassKg,
-        "payload_mass_lbs": payloadMassLbs == null ? null : payloadMassLbs,
-        "orbit": orbit == null ? null : orbit,
-        "orbit_params": orbitParams == null ? null : orbitParams.toJson(),
-        "cap_serial": capSerial == null ? null : capSerial,
-        "mass_returned_kg": massReturnedKg == null ? null : massReturnedKg,
-        "mass_returned_lbs": massReturnedLbs == null ? null : massReturnedLbs,
-        "flight_time_sec": flightTimeSec == null ? null : flightTimeSec,
-        "cargo_manifest": cargoManifest == null ? null : cargoManifest,
-        "uid": uid == null ? null : uid,
-    };
+   
 }
 
 class OrbitParams {
@@ -621,8 +484,8 @@ class OrbitParams {
         this.meanAnomaly,
     });
 
-    ReferenceSystem referenceSystem;
-    Regime regime;
+    String referenceSystem;
+    String regime;
     double longitude;
     double semiMajorAxisKm;
     double eccentricity;
@@ -639,11 +502,9 @@ class OrbitParams {
 
     factory OrbitParams.fromRawJson(String str) => OrbitParams.fromJson(json.decode(str));
 
-    String toRawJson() => json.encode(toJson());
-
-    factory OrbitParams.fromJson(Map<String, dynamic> json) => OrbitParams(
-        referenceSystem: json["reference_system"] == null ? null : referenceSystemValues.map[json["reference_system"]],
-        regime: json["regime"] == null ? null : regimeValues.map[json["regime"]],
+   factory OrbitParams.fromJson(Map<String, dynamic> json) => OrbitParams(
+        referenceSystem: json["reference_system"] == null ? null : json["reference_system"],
+        regime: json["regime"] == null ? null : json["regime"],
         longitude: json["longitude"] == null ? null : json["longitude"].toDouble(),
         semiMajorAxisKm: json["semi_major_axis_km"] == null ? null : json["semi_major_axis_km"].toDouble(),
         eccentricity: json["eccentricity"] == null ? null : json["eccentricity"].toDouble(),
@@ -659,48 +520,32 @@ class OrbitParams {
         meanAnomaly: json["mean_anomaly"] == null ? null : json["mean_anomaly"].toDouble(),
     );
 
-    Map<String, dynamic> toJson() => {
-        "reference_system": referenceSystem == null ? null : referenceSystemValues.reverse[referenceSystem],
-        "regime": regime == null ? null : regimeValues.reverse[regime],
-        "longitude": longitude == null ? null : longitude,
-        "semi_major_axis_km": semiMajorAxisKm == null ? null : semiMajorAxisKm,
-        "eccentricity": eccentricity == null ? null : eccentricity,
-        "periapsis_km": periapsisKm == null ? null : periapsisKm,
-        "apoapsis_km": apoapsisKm == null ? null : apoapsisKm,
-        "inclination_deg": inclinationDeg == null ? null : inclinationDeg,
-        "period_min": periodMin == null ? null : periodMin,
-        "lifespan_years": lifespanYears == null ? null : lifespanYears,
-        "epoch": epoch == null ? null : epoch.toIso8601String(),
-        "mean_motion": meanMotion == null ? null : meanMotion,
-        "raan": raan == null ? null : raan,
-        "arg_of_pericenter": argOfPericenter == null ? null : argOfPericenter,
-        "mean_anomaly": meanAnomaly == null ? null : meanAnomaly,
-    };
+  
 }
 
-enum ReferenceSystem { GEOCENTRIC, HELIOCENTRIC, HIGHLY_ELLIPTICAL }
+// enum ReferenceSystem { GEOCENTRIC, HELIOCENTRIC, HIGHLY_ELLIPTICAL }
 
-final referenceSystemValues = EnumValues({
-    "geocentric": ReferenceSystem.GEOCENTRIC,
-    "heliocentric": ReferenceSystem.HELIOCENTRIC,
-    "highly-elliptical": ReferenceSystem.HIGHLY_ELLIPTICAL
-});
+// final referenceSystemValues = EnumValues({
+//     "geocentric": ReferenceSystem.GEOCENTRIC,
+//     "heliocentric": ReferenceSystem.HELIOCENTRIC,
+//     "highly-elliptical": ReferenceSystem.HIGHLY_ELLIPTICAL
+// });
 
-enum Regime { LOW_EARTH, GEOSTATIONARY, L1_POINT, GEOSYNCHRONOUS, SUN_SYNCHRONOUS, HIGH_EARTH, SEMI_SYNCHRONOUS, HIGHLY_ELLIPTICAL, VERY_LOW_EARTH, MEDIUM_EARTH, SUB_ORBITAL }
+// enum Regime { LOW_EARTH, GEOSTATIONARY, L1_POINT, GEOSYNCHRONOUS, SUN_SYNCHRONOUS, HIGH_EARTH, SEMI_SYNCHRONOUS, HIGHLY_ELLIPTICAL, VERY_LOW_EARTH, MEDIUM_EARTH, SUB_ORBITAL }
 
-final regimeValues = EnumValues({
-    "geostationary": Regime.GEOSTATIONARY,
-    "geosynchronous": Regime.GEOSYNCHRONOUS,
-    "highly-elliptical": Regime.HIGHLY_ELLIPTICAL,
-    "high-earth": Regime.HIGH_EARTH,
-    "L1-point": Regime.L1_POINT,
-    "low-earth": Regime.LOW_EARTH,
-    "medium-earth": Regime.MEDIUM_EARTH,
-    "semi-synchronous": Regime.SEMI_SYNCHRONOUS,
-    "sub-orbital": Regime.SUB_ORBITAL,
-    "sun-synchronous": Regime.SUN_SYNCHRONOUS,
-    "very-low-earth": Regime.VERY_LOW_EARTH
-});
+// final regimeValues = EnumValues({
+//     "geostationary": Regime.GEOSTATIONARY,
+//     "geosynchronous": Regime.GEOSYNCHRONOUS,
+//     "highly-elliptical": Regime.HIGHLY_ELLIPTICAL,
+//     "high-earth": Regime.HIGH_EARTH,
+//     "L1-point": Regime.L1_POINT,
+//     "low-earth": Regime.LOW_EARTH,
+//     "medium-earth": Regime.MEDIUM_EARTH,
+//     "semi-synchronous": Regime.SEMI_SYNCHRONOUS,
+//     "sub-orbital": Regime.SUB_ORBITAL,
+//     "sun-synchronous": Regime.SUN_SYNCHRONOUS,
+//     "very-low-earth": Regime.VERY_LOW_EARTH
+// });
 
 enum PayloadType { SATELLITE, DRAGON_BOILERPLATE, DRAGON_10, DRAGON_11, LANDER, CREW_DRAGON }
 

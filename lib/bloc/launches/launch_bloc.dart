@@ -17,6 +17,7 @@ class LaunchBloc extends Bloc<LaunchEvent, LaunchState> {
       if (event is LaunchInitial) {
         yield Loading();
         final launchs = await repository.fetchAllLaunch();
+        launchs.sort((x,y) => y.launchDateUtc.compareTo(x.launchDateUtc));
         if (launchs != null) {
           yield LoadedState(launchs);
         }
