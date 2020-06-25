@@ -10,6 +10,8 @@ class LightColor {
   static const Color grey = Color(0xffb8bfce);
   static const Color iconColor = Color(0xffcbd0db);
   
+  static const Color Brighter = Color(0xffa5a5a5);
+  static const Color Darker = Colors.black;
 
   static const Color black = Color(0xff20262C);
   static const Color lightblack = Color(0xff5F5F60);

@@ -15,6 +15,10 @@ class AppTheme {
     bottomAppBarColor: LightColor.bottomAppBarColor,
     dividerColor: LightColor.grey,
     cardColor: LightColor.primaryExtraLightColor,
+    appBarTheme: AppBarTheme(
+      brightness: Brightness.light,
+      color: LightColor.primaryColor,
+    ),
     disabledColor: LightColor.grey,
     primaryTextTheme: TextTheme(
         bodyText1: TextStyle(
@@ -44,7 +48,11 @@ class AppTheme {
         onError: LightColor.titleTextColor,
         brightness: Brightness.dark),
     textTheme: TextTheme(
-      bodyText1: TextStyle(color: LightColor.black),
+      bodyText1: TextStyle(color: LightColor.titleTextColor),
+      subtitle1: TextStyle(
+        color: LightColor.subTitleTextColor,
+        fontWeight: FontWeight.bold,
+      ),
     ),
   );
 
@@ -79,7 +87,13 @@ class AppTheme {
         onBackground: DarkColor.titleTextColor,
         onError: DarkColor.titleTextColor,
         brightness: Brightness.dark),
-    textTheme: TextTheme(bodyText1: TextStyle(color: Color(0xffd1d1d0))),
+    textTheme: TextTheme(
+      bodyText1: TextStyle(color: Color(0xffd1d1d0)),
+      subtitle1: TextStyle(
+        color: DarkColor.subTitleTextColor,
+        fontWeight: FontWeight.bold,
+      ),
+    ),
     iconTheme: IconThemeData(color: DarkColor.lightGrey),
     brightness: Brightness.dark,
   );

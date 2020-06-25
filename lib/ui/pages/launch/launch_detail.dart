@@ -3,17 +3,32 @@ import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
 import 'package:flutter_spacexopedia/ui/pages/launch/widgets/youtube_player.dart';
 import 'package:flutter_spacexopedia/ui/theme/theme.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LaunchDetail extends StatelessWidget {
   const LaunchDetail({Key key, this.model}) : super(key: key);
   final Launch model;
-  Widget _rowTile(String title, String value,
-      {bool isNavigate, Function onPressed}) {
-    return ListTile(
-      onTap: () {},
-      title: Text(title),
-      trailing: Text(value),
-    );
+ 
+
+  Widget _links(
+    String title,
+    String value,
+    int from,
+    int to,
+  ) {
+    String url = value;
+    if (value != null) {
+      value = value.substring(from, to);
+    } else {
+      value = "N/A";
+    }
+    return _ListTile(title, value, onPressed: () {
+      canLaunch(url).then((yes) {
+        if (yes) {
+          launch(url);
+        }
+      });
+    });
   }
 
   Widget _heading(context, String title, ThemeData theme) {
@@ -22,8 +37,8 @@ class LaunchDetail extends StatelessWidget {
       padding: EdgeInsets.only(bottom: 8, left: 16),
       height: 50,
       width: AppTheme.fullWidth(context),
-      color: theme.appBarTheme.color,
-      child: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+      color: theme.colorScheme.primary.withAlpha(30),
+      child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize:15)),
     );
   }
 
@@ -31,105 +46,176 @@ class LaunchDetail extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Scaffold(
-      appBar: AppBar(
-        title: Title(
-          color: theme.textTheme.bodyText1.color,
-          child: Text(model.missionName),
-          title: "Title of screen",
-        ),
-      ),
       body: Column(
         children: <Widget>[
-          YoutubeVideoPlayer(
-            youtubeId: model?.links?.youtubeId,
-          ),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: <Widget>[
-                  SizedBox(height: 16),
-                  ListTile(
-                    title: Text("Description"),
-                    subtitle: Text(
-                      model.details,
-                      textAlign: TextAlign.justify,
-                    ),
+            child: CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                  title: Title(
+                    color: theme.textTheme.bodyText1.color,
+                    child: Text(model.missionName),
+                    title: "Title of screen",
                   ),
-                  SizedBox(height: 16),
-                  Divider(height: 0),
-                  _rowTile("Flight no", "#${model.flightNumber}"),
-                  Divider(height: 0),
-                  _rowTile("Launch date",
-                      Utils.toformattedDate2(model.launchDateLocal)),
-                  Divider(height: 0),
-                  _rowTile("Success", model.launchSuccess ? "Yes" : "False"),
-                  Divider(height: 0),
-                  _rowTile("Location", model.launchSite.siteName),
-                  Divider(height: 0),
-                  _rowTile("Rocket", model.rocket.rocketName),
-                  Divider(height: 0),
+                  floating: true,
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    YoutubeVideoPlayer(
+                      youtubeId: model?.links?.youtubeId,
+                    ),
 
-                  /// Core
-                  _heading(context, "Core #1", theme),
-                  _rowTile(
-                      "Serial", model.rocket.firstStage.cores.first.coreSerial),
-                  Divider(height: 0),
-                  _rowTile("Block", model.rocket.firstStage.cores.first.block.toString()),
-                  Divider(height: 0),
-                  _rowTile("Flight number","#${model.flightNumber}"),
-                  Divider(height: 0),
-                  _rowTile("Resued", model.rocket.firstStage.cores.first.reused ? "Yes": "No"),
-                  Divider(height: 0),
-                  _rowTile("Landing type", model.rocket.firstStage.cores.first.landingType),
-                  Divider(height: 0),
-                  _rowTile("Landing vehicle", model.rocket.firstStage.cores.first.landingVehicle),
-                   Divider(height: 0),
-                  _rowTile("Landing Sucess", model.rocket.firstStage.cores.first.landSuccess ? "Yes" : "No"),
-                  /// Payload
-                  _heading(
-                      context,
-                      "Payload: ${model.rocket.secondStage.payloads.first.payloadId}",
-                      theme),
-                  _rowTile("Customers", model.rocket.secondStage.payloads.first.customers.first),
-                  Divider(height: 0),
-                  _rowTile("Nationality", model.rocket.secondStage.payloads.first.nationality),
-                  Divider(height: 0),
-                  _rowTile("Manufacturer",model.rocket.secondStage.payloads.first.manufacturer),
-                  Divider(height: 0),
-                  _rowTile("Mass", model.rocket.secondStage.payloads.first.payloadMassKg.toString() + " Kg"),
-                  Divider(height: 0),
-                  _rowTile("Orbit", model.rocket.secondStage.payloads.first.orbit ),
-                  Divider(height: 0),
+                    SizedBox(height: model.details == null ? 0 : 16),
+                    model.details == null
+                        ? SizedBox.shrink()
+                        : ListTile(
+                            title: Text("Description",style:theme.textTheme.headline6.copyWith(fontSize: 15),),
+                            subtitle: Text(
+                              model.details ?? "",
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
+                    SizedBox(height: model.details == null ? 0 : 16),
+                    Divider(height: 0),
+                    _ListTile("Flight no", "#${model.flightNumber}"),
+                    Divider(height: 0),
+                    _ListTile("Launch date",
+                        Utils.toformattedDate2(model.launchDateLocal)),
+                    Divider(height: 0),
+                    _ListTile(
+                        "Success",
+                        model.launchSuccess == null
+                            ? "N/A"
+                            : model.launchSuccess ? "Yes" : "False"),
+                    Divider(height: 0),
+                    _ListTile("Location", model.launchSite.siteName),
+                    Divider(height: 0),
+                    _ListTile("Rocket", model.rocket.rocketName),
+                    Divider(height: 0),
 
-                   /// Link
-                  _heading(context, "Links", theme),
-                  _rowTile(
-                      "Mission patch", model.links.missionPatch.substring(0,30)),
-                  Divider(height: 0),
-                  _rowTile(
-                      "Reddit campaign","www.reddit.com"),
-                  Divider(height: 0),
-                  _rowTile(
-                      "Reddit launch", "www.reddit.com"),
-                  Divider(height: 0),
-                  _rowTile(
-                      "Reddit recovery", "www.reddit.com"),
-                  Divider(height: 0),
-                  _rowTile(
-                      "Reddit media", "www.reddit.com"),
-                  Divider(height: 0),
-                  _rowTile(
-                      "Article link", model.links.articleLink.substring(0,30)),
-                  Divider(height: 0),
-                  _rowTile(
-                      "Wikipedia", model.links.wikipedia),
-                  Divider(height: 0),
-                ],
-              ),
+                    /// Core
+                    _heading(context, "Core #1", theme),
+                    _ListTile("Serial",
+                        model.rocket.firstStage.cores.first.coreSerial),
+                    Divider(height: 0),
+                    _ListTile("Block",
+                        model.rocket.firstStage.cores.first.block.toString()),
+                    Divider(height: 0),
+                    _ListTile("Flight number", "#${model.flightNumber}"),
+                    Divider(height: 0),
+                    _ListTile(
+                        "Resued",
+                        model.rocket.firstStage.cores.first.reused == null
+                            ? "N/A"
+                            : model.rocket.firstStage.cores.first.reused
+                                ? "Yes"
+                                : "No"),
+                    Divider(height: 0),
+                    _ListTile("Landing type",
+                        model.rocket.firstStage.cores.first.landingType),
+                    Divider(height: 0),
+                    _ListTile("Landing vehicle",
+                        model.rocket.firstStage.cores.first.landingVehicle),
+                    Divider(height: 0),
+                    _ListTile(
+                        "Landing Sucess",
+                        model.rocket.firstStage.cores.first.landSuccess == null
+                            ? "N/A"
+                            : model.rocket.firstStage.cores.first.landSuccess
+                                ? "Yes"
+                                : "No"),
+
+                    /// Payload
+                    _heading(
+                        context,
+                        "Payload: ${model.rocket.secondStage.payloads.first.payloadId}",
+                        theme),
+                    _ListTile(
+                        "Customers",
+                        model
+                            .rocket.secondStage.payloads.first.customers.first),
+                    Divider(height: 0),
+                    _ListTile("Nationality",
+                        model.rocket.secondStage.payloads.first.nationality),
+                    Divider(height: 0),
+                    _ListTile("Manufacturer",
+                        model.rocket.secondStage.payloads.first.manufacturer),
+                    Divider(height: 0),
+                    _ListTile(
+                        "Mass",
+                        model.rocket.secondStage.payloads.first.payloadMassKg ==
+                                null
+                            ? "N/A"
+                            : model.rocket.secondStage.payloads.first
+                                    .payloadMassKg
+                                    .toString() +
+                                " Kg"),
+                    Divider(height: 0),
+                    _ListTile(
+                        "Orbit", model.rocket.secondStage.payloads.first.orbit),
+                    Divider(height: 0),
+
+                    /// Link
+                    _heading(context, "Links", theme),
+                    _links("Mission patch", model.links.missionPatch, 0, 26),
+                    Divider(height: 0),
+                    _links(
+                        "Reddit campaign", model.links.redditCampaign, 8, 22),
+                    Divider(height: 0),
+                    _links("Reddit launch", model.links.redditCampaign, 8, 22),
+                    Divider(height: 0),
+                    _links(
+                        "Reddit recovery", model.links.redditCampaign, 8, 22),
+                    Divider(height: 0),
+                    _links("Reddit media", model.links.redditCampaign, 8, 22),
+                    Divider(height: 0),
+                    _links("Article link", model.links.articleLink, 0, 26),
+                    Divider(height: 0),
+                    _links("Wikipedia", model.links.wikipedia, 0, 24),
+                    Divider(height: 0),
+                  ], addAutomaticKeepAlives: true),
+                )
+              ],
             ),
           ),
         ],
       ),
     );
+  }
+}
+
+class _ListTile extends StatelessWidget {
+  const _ListTile( this.title, this.value,{Key key,this.onPressed}) : super(key: key);
+  final String title;
+  final String value;
+  final  Function onPressed;
+
+   Widget _rowTile(String title, String value,
+      { Function onPressed,ThemeData theme}) {
+    if (value == null) {
+      value = "N/A";
+    }
+    return ListTile(
+      contentPadding: EdgeInsets.only(
+          left: 16, top: 4, bottom: 4, right: onPressed == null ? 16 : 0),
+      title: Row(
+        children: <Widget>[
+          Text(title,style:theme.textTheme.headline6.copyWith(fontSize: 14)),
+          Spacer(),
+          Text(value,style:theme.textTheme.bodyText1.copyWith(fontSize: 14)),
+          onPressed != null
+              ? IconButton(
+                  icon: Icon(Icons.keyboard_arrow_right),
+                  onPressed: onPressed,
+                )
+              : SizedBox()
+        ],
+      ),
+    );
+  }
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return _rowTile(title, value, onPressed:onPressed,theme:theme);
   }
 }

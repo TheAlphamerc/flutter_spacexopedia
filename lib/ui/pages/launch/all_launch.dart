@@ -109,7 +109,13 @@ class LaunchCard extends StatelessWidget {
   final Launch model;
 
   const LaunchCard({Key key, this.model}) : super(key: key);
-
+  Widget _row(IconData icon, String value, ThemeData theme){
+    return Row(children: <Widget>[
+      Icon(icon, size:15),
+      SizedBox(width:10),
+      Text(value,style: TextStyle(color: theme.colorScheme.onSurface))
+    ],);
+  }
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -137,14 +143,8 @@ class LaunchCard extends StatelessWidget {
             "Flight no: ${model.flightNumber}",
             style: TextStyle(color: theme.colorScheme.onSurface),
           ),
-          Text(
-            "Launch date: ${Utils.toformattedDate(model.launchDateLocal)}",
-            style: TextStyle(color: theme.colorScheme.onSurface),
-          ),
-          Text(
-            "Launch site: ${model.launchSite.siteName}",
-            style: TextStyle(color: theme.colorScheme.onSurface),
-          )
+          _row(Icons.calendar_today, "${Utils.toformattedDate(model.launchDateLocal)}",theme),
+          _row(Icons.location_on, model.launchSite.siteName,theme),
         ],
       ),
     );

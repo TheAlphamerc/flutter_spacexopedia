@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spacexopedia/ui/theme/colors/dark_color.dart';
 import 'package:flutter_spacexopedia/ui/theme/theme.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -43,9 +44,16 @@ class _YoutubePlayerState extends State<YoutubeVideoPlayer> {
               ),
             ),
           )
-        : Placeholder(
-            fallbackWidth: AppTheme.fullWidth(context),
-            fallbackHeight: 200,
+        : Container(
+            width: AppTheme.fullWidth(context),
+            height: 200,
+            color: theme.colorScheme.primary.withOpacity(.3),
+            child: Center(
+              child: Text(
+                "No Video Available".toUpperCase(),
+                style: theme.textTheme.subtitle1.copyWith(fontSize: 14)
+              ),
+            ),
           );
   }
 }
