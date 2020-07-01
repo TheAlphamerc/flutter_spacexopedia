@@ -110,8 +110,11 @@ class LaunchCard extends StatelessWidget {
 
   const LaunchCard({Key key, this.model}) : super(key: key);
   Widget _row(IconData icon, String value, ThemeData theme){
+    if(value == null){
+      value = "N/A";
+    }
     return Row(children: <Widget>[
-      Icon(icon, size:15),
+      Icon(icon, size:15, color:theme.colorScheme.onSurface.withOpacity(.5)),
       SizedBox(width:10),
       Text(value,style: TextStyle(color: theme.colorScheme.onSurface))
     ],);
