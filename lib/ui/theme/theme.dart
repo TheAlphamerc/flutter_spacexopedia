@@ -33,9 +33,7 @@ class AppTheme {
       disabledColor: LightColor.disableButtonColor,
       textTheme: ButtonTextTheme.normal,
     ),
-    primaryIconTheme: IconThemeData(
-      color: LightColor.secondaryColor
-    ),
+    primaryIconTheme: IconThemeData(color: LightColor.secondaryColor),
     colorScheme: ColorScheme(
         primary: LightColor.primaryColor,
         primaryVariant: LightColor.primaryLightColor,
@@ -76,9 +74,7 @@ class AppTheme {
         disabledColor: DarkColor.disableButtonColor,
         textTheme: ButtonTextTheme.normal),
     bottomAppBarColor: DarkColor.bottomAppBarColor,
-     primaryIconTheme: IconThemeData(
-      color: DarkColor.secondaryColor
-    ),
+    primaryIconTheme: IconThemeData(color: DarkColor.secondaryColor),
     colorScheme: ColorScheme(
         primary: DarkColor.primaryColor,
         primaryVariant: DarkColor.primaryLightColor,

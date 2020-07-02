@@ -38,8 +38,6 @@ class CustomThemeState extends State<CustomTheme> {
     super.initState();
   }
 
-  
-
   void changeTheme(ThemeType themeKey) {
     setState(() {
       _theme = AppTheme.getThemeFromKey(themeKey);
