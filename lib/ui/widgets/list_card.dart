@@ -29,8 +29,11 @@ class ListCard extends StatelessWidget {
           bottomLeft: Radius.circular(8),
           topLeft: Radius.circular(8),
         ),
-        child: customNetworkImage(imagePath,
-            fit: BoxFit.cover, placeholder: _noImage(context)),
+        child: customNetworkImage(
+          imagePath,
+          fit: BoxFit.cover,
+          placeholder: _noImage(context),
+        ),
       ),
     );
   }
