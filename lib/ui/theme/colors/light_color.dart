@@ -14,7 +14,7 @@ class LightColor {
   static const Color Darker = Colors.black;
 
   static const Color black = Color(0xff20262C);
-  static const Color lightblack = Color(0xff5F5F60);
+  static const Color onBackground = Color(0xff5F5F60);
 
   static const Color bottomAppBarColor = const Color(0xffffffff);
 

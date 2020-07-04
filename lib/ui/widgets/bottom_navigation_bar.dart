@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/navigation/bloc.dart';
+import 'package:flutter_spacexopedia/helper/app_font.dart';
 
 class SBottomNavigationBar extends StatelessWidget {
   const SBottomNavigationBar({Key key}) : super(key: key);
@@ -16,31 +17,27 @@ class SBottomNavigationBar extends StatelessWidget {
           pageindex = state.index;
         }
         return BottomNavigationBar(
-          selectedIconTheme: IconThemeData(
-              // color: theme.colorScheme.secondary,
-              ),
+          elevation: 10,
+          unselectedIconTheme:
+              IconThemeData(color: theme.colorScheme.onPrimary),
           type: BottomNavigationBarType.fixed,
-          // selectedLabelStyle: TextStyle(color:theme.colorScheme.secondary, fontWeight: FontWeight.bold),
-          unselectedLabelStyle:
-              TextStyle(color: theme.primaryColor, fontWeight: FontWeight.bold),
+          unselectedLabelStyle: TextStyle(
+              color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold),
           onTap: (index) {
             bloc.add(IndexSelected(index));
           },
           currentIndex: pageindex,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance),
-                title: Text(
-                  "Launch",
-                )),
+                icon: Icon(AppFont.launch), title: Text("Launch")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance), title: Text("Roadster")),
+                icon: Icon(AppFont.roadster), title: Text("Roadster")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance), title: Text("Rocket")),
+                icon: Icon(AppFont.rocket), title: Text("Rocket")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance), title: Text("Dragon")),
+                icon: Icon(AppFont.rocketdragon), title: Text("Dragon")),
             BottomNavigationBarItem(
-                icon: Icon(Icons.account_balance), title: Text("Core")),
+                icon: Icon(AppFont.core), title: Text("Core")),
           ],
         );
       },

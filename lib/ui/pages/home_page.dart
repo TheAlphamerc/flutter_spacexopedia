@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/navigation/bloc.dart';
+import 'package:flutter_spacexopedia/helper/app_font.dart';
 import 'package:flutter_spacexopedia/ui/pages/core/core_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/dragon/dragon_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/launch/all_launch.dart';
@@ -83,18 +84,24 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: <Widget>[
           BlocBuilder<NavigationBloc, NavigationState>(
-              builder: (context, state) {
-            if (state is SelectTheme) {
-              isDarkTheme = state.type == ThemeType.DARK;
-            }
-            return IconButton(
-              icon: Icon(isDarkTheme ? Icons.event_note : Icons.ev_station),
-              onPressed: () {
-                _changeTheme(
-                    context, isDarkTheme ? ThemeType.LIGHT : ThemeType.DARK);
-              },
-            );
-          }),
+            builder: (context, state) {
+              if (state is SelectTheme) {
+                isDarkTheme = state.type == ThemeType.DARK;
+              }
+              return IconButton(
+                icon: Icon(
+                  isDarkTheme ? AppFont.sun : AppFont.moon,
+                  color: isDarkTheme
+                      ? theme.primaryIconTheme.color
+                      : theme.iconTheme.color,
+                ),
+                onPressed: () {
+                  _changeTheme(
+                      context, isDarkTheme ? ThemeType.LIGHT : ThemeType.DARK);
+                },
+              );
+            },
+          ),
         ],
       ),
       bottomNavigationBar: SBottomNavigationBar(),

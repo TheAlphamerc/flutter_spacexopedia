@@ -7,7 +7,7 @@ enum ThemeType { LIGHT, DARK }
 
 class AppTheme {
   const AppTheme._();
-  static ThemeData lightTheme = ThemeData(
+  static ThemeData lightTheme = ThemeData.light().copyWith(
     backgroundColor: LightColor.background,
     primaryColor: LightColor.primaryColor,
     cardTheme: CardTheme(color: LightColor.background),
@@ -42,7 +42,7 @@ class AppTheme {
         surface: LightColor.background,
         background: LightColor.background,
         error: Colors.red,
-        onPrimary: LightColor.titleTextColor,
+        onPrimary: LightColor.onBackground,
         onSecondary: LightColor.black,
         onSurface: LightColor.titleTextColor,
         onBackground: LightColor.titleTextColor,
@@ -57,8 +57,7 @@ class AppTheme {
     ),
   );
 
-  static ThemeData darkTheme = ThemeData(
-    primarySwatch: Colors.blue,
+  static ThemeData darkTheme = ThemeData.dark().copyWith(
     backgroundColor: DarkColor.background,
     primaryColor: DarkColor.primaryColor,
     primaryColorDark: DarkColor.Darker,
@@ -68,7 +67,6 @@ class AppTheme {
     tabBarTheme: TabBarTheme(
       labelPadding: EdgeInsets.symmetric(vertical: 16),
     ),
-    // cardTheme: CardTheme(color: DarkColor.background),
     buttonTheme: ButtonThemeData(
         buttonColor: DarkColor.buttonColor,
         disabledColor: DarkColor.disableButtonColor,
