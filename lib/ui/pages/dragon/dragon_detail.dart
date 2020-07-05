@@ -1,14 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spacexopedia/bloc/rocket/rocket_model.dart';
+import 'package:flutter_spacexopedia/bloc/dragon/dragon_model.dart';
+import 'package:flutter_spacexopedia/helper/utils.dart';
 import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 import 'package:flutter_spacexopedia/ui/widgets/custom_heading_tile.dart';
 import 'package:flutter_spacexopedia/ui/widgets/custom_list_tile.dart';
 import 'package:flutter_spacexopedia/ui/widgets/image_slider.dart';
 import 'package:flutter_spacexopedia/ui/widgets/title_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-class RocketDetail extends StatelessWidget {
-  const RocketDetail({Key key, this.model}) : super(key: key);
-  final RocketModel model;
+class DragonDetail extends StatelessWidget {
+  const DragonDetail({Key key, this.model}) : super(key: key);
+  final DragonModel model;
+  Widget _links(
+    String title,
+    String value,
+    int from,
+    int to,
+  ) {
+    String url = value;
+    if (value != null) {
+      value = value.substring(from, to);
+    } else {
+      value = "N/A";
+    }
+    return SListTile(title, value, onPressed: () {
+      canLaunch(url).then((yes) {
+        if (yes) {
+          launch(url);
+        }
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +44,7 @@ class RocketDetail extends StatelessWidget {
                 SliverAppBar(
                   title: Title(
                     color: theme.backgroundColor,
-                    child: Text(model.rocketName),
+                    child: Text(model.name),
                     title: "Title of screen",
                   ),
                   pinned: true,
@@ -50,59 +72,50 @@ class RocketDetail extends StatelessWidget {
                       SizedBox(height: 10),
                       Divider(height: 0),
                       SHeadingTile("Basic info"),
-                      SListTile("Name", model.rocketName),
+                      SListTile("Name", model.name),
                       Divider(height: 0),
-                      SListTile("Layout", model.engines.layout),
+                      SListTile("Type", model.type),
                       Divider(height: 0),
                       SListTile("Diameter", "${model.diameter.meters} m"),
                       Divider(height: 0),
-                      SListTile("Height", "${model.height.meters} m"),
+                      SListTile("Height", "${model.heightWTrunk.meters} m"),
                       Divider(height: 0),
-                      SListTile("Weight", "${model.mass.kg} Kg"),
+                      SListTile("Weight", "${model.dryMassKg} Kg"),
                       Divider(height: 0),
-                      SListTile("Engines", "${model.engines.number}"),
+                      SListTile("First flight on",
+                          "${Utils.toformattedDate(model.firstFlight)}"),
                       Divider(height: 0),
-                      SListTile("Landing legs", "${model.landingLegs.number}"),
-                      Divider(height: 0),
-                      SListTile(
-                        "Landing legs material",
-                        "${model.landingLegs.material}",
-                      ),
-                      Divider(height: 0),
-                      SListTile("Boosters", model.boosters.toString()),
-                      Divider(height: 0),
-                      SListTile("Sucess rate", "${model.successRatePct} %"),
+                      SListTile("Crew Capicity", "${model.crewCapacity}"),
                       Divider(height: 0),
                       SListTile(
-                        "Cost per launch",
-                        model.costPerLaunch.toString(),
+                        "Orbit duration",
+                        "${model.orbitDurationYr} yr",
                       ),
-                      SHeadingTile("Engine"),
+                      SListTile("Launch payload mass",
+                          "${model.launchPayloadMass.kg} Kg"),
                       Divider(height: 0),
-                      SListTile("Type ", "${model.engines.type}"),
+                      SListTile("Return payload mass",
+                          "${model.returnPayloadMass.kg} Kg"),
                       Divider(height: 0),
-                      SListTile("Version", "${model.engines.version}"),
+                      SListTile("Launch payload volume",
+                          "${model.launchPayloadVol.cubicMeters} cubic meter"),
                       Divider(height: 0),
-                      SListTile("Layout", "${model.engines.layout}"),
+                      SListTile("Return  payload mass",
+                          "${model.returnPayloadVol.cubicMeters} cubic meter"),
                       Divider(height: 0),
-                      SListTile("Propellant 1", "${model.engines.propellant1}"),
+                      _links("Wiki", model.wikipedia,0,24),
+                      // Divider(height: 0),
+                      SHeadingTile("Heat shield"),
+                      SListTile("Material", model.heatShield.material),
                       Divider(height: 0),
-                      SListTile("Propellant 1", "${model.engines.propellant2}"),
+                      SListTile("Size", "${model.heatShield.sizeMeters} m"),
                       Divider(height: 0),
                       SListTile(
-                        "Thrust sea level",
-                        "${model.engines.thrustSeaLevel.kN} Kn",
+                        "Temprature",
+                        "${model.heatShield.tempDegrees} degree",
                       ),
                       Divider(height: 0),
-                      SListTile(
-                        "Thrust to weight",
-                        "${model.engines.thrustToWeight}",
-                      ),
-                      Divider(height: 0),
-                      SListTile(
-                        "Thrust to vaccum",
-                        "${model.engines.thrustVacuum.kN} Kn",
-                      ),
+                      SListTile("Partner", "${model.heatShield.devPartner}"),
                     ],
                   ),
                 ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spacexopedia/bloc/dragon/dragon_model.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
+import 'package:flutter_spacexopedia/ui/pages/dragon/dragon_detail.dart';
 import 'package:flutter_spacexopedia/ui/widgets/list_card.dart';
 import 'package:flutter_spacexopedia/ui/widgets/title_text.dart';
 import 'package:flutter_spacexopedia/ui/widgets/title_value.dart';
@@ -29,6 +30,9 @@ class DragonCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListCard(
       imagePath: model.flickrImages?.first,
+      onPressed: () {
+         Navigator.push(context,MaterialPageRoute(builder: (_) => DragonDetail(model: model,)));
+      },
       bodyContent: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
