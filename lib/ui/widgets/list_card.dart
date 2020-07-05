@@ -46,7 +46,7 @@ class ListCard extends StatelessWidget {
         topLeft: Radius.circular(8),
       ),
       child: Container(
-        color: theme.colorScheme.background.withAlpha(80),
+        // color: theme.colorScheme.background.withAlpha(80),
         padding: EdgeInsets.all(8),
         child: Stack(
           children: <Widget>[
