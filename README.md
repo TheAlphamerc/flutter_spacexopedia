@@ -1,7 +1,7 @@
 
 
 ## Fluter Spacexopedia ![Twitter URL](https://img.shields.io/twitter/url?style=social&url=https%3A%2F%2Ftwitter.com%2Fthealphamerc) [![GitHub stars](https://img.shields.io/github/stars/Thealphamerc/flutter_spacexopedia?style=social)](https://github.com/login?return_to=%2FTheAlphamerc%flutter_spacexopedia) ![GitHub forks](https://img.shields.io/github/forks/TheAlphamerc/flutter_spacexopedia?style=social) 
-![Dart CI](https://github.com/TheAlphamerc/flutter_spacexopedia/workflows/Dart%20CI/badge.svg) ![GitHub pull requests](https://img.shields.io/github/issues-pr/TheAlphamerc/flutter_spacexopedia) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Thealphamerc/flutter_spacexopedia) ![GitHub last commit](https://img.shields.io/github/last-commit/Thealphamerc/flutter_twitter_clone)  ![GitHub issues](https://img.shields.io/github/issues-raw/Thealphamerc/flutter_spacexopedia) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Thealphamerc/flutter_spacexopedia) 
+![Dart CI](https://github.com/TheAlphamerc/flutter_spacexopedia/workflows/Dart%20CI/badge.svg) ![GitHub pull requests](https://img.shields.io/github/issues-pr/TheAlphamerc/flutter_spacexopedia) ![GitHub closed pull requests](https://img.shields.io/github/issues-pr-closed/Thealphamerc/flutter_spacexopedia) ![GitHub last commit](https://img.shields.io/github/last-commit/Thealphamerc/flutter_spacexopedia)  ![GitHub issues](https://img.shields.io/github/issues-raw/Thealphamerc/flutter_spacexopedia) [![Open Source Love](https://badges.frapsoft.com/os/v2/open-source.svg?v=103)](https://github.com/Thealphamerc/flutter_spacexopedia) 
 
 An unofficial SpaceX app powered by the [SpaceX API by r-spacex](https://github.com/r-spacex/SpaceX-API). It shows the information about the upcoming and past launches. There is also a tab for all current, past, and future SpaceX rockets, and for various statistics.
 
@@ -29,7 +29,7 @@ An unofficial SpaceX app powered by the [SpaceX API by r-spacex](https://github.
      
 </details>
 
-## Dark Mode Screenshots
+## App Screenshots
 
 Upcomming Launchs               |  Launch Detail               | Roadsters               |  Rockets
 :-------------------------:|:-------------------------:|:-------------------------:|:-------------------------:
