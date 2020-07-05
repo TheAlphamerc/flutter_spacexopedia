@@ -47,7 +47,7 @@ class LaunchDetail extends StatelessWidget {
                   title: Title(
                     color: theme.backgroundColor,
                     child: Text(model.missionName),
-                    title: "Title of screen",
+                    title: model.missionName,
                   ),
                   floating: true,
                 ),

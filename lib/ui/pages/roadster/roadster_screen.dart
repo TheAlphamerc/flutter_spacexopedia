@@ -9,6 +9,7 @@ class RoadsterScreen extends StatelessWidget {
   final RoadsterModel model;
 
   const RoadsterScreen({Key key, this.model}) : super(key: key);
+    
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,13 +25,13 @@ class RoadsterScreen extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                RaisedButton(
+                OutlineButton(
                   onPressed: () {
                     launch(model.wikipedia);
                   },
                   child: TitleText("Wiki", fontSize:16),
                 ),
-                RaisedButton(
+                OutlineButton(
                   onPressed: () {
                     launch(model.video);
                   },
@@ -102,6 +103,7 @@ class _RodsterListTile extends StatelessWidget {
               TitleText(
                 title,
                 fontSize: 16,
+                fontWeight: FontWeight.w400
               ),
               TitleText(
                 value,

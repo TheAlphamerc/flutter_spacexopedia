@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/navigation/bloc.dart';
 import 'package:flutter_spacexopedia/helper/app_font.dart';
+import 'package:flutter_spacexopedia/helper/utils.dart';
 import 'package:flutter_spacexopedia/ui/pages/core/core_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/dragon/dragon_page.dart';
 import 'package:flutter_spacexopedia/ui/pages/launch/all_launch.dart';
@@ -78,10 +79,11 @@ class _HomePageState extends State<HomePage> {
             return Title(
               color: theme.colorScheme.onSurface,
               child: Text(_getPageName(pageindex)),
-              title: "Title of screen",
+              title: "Spacexopedia",
             );
           },
         ),
+        // iconTheme: ,
         actions: <Widget>[
           BlocBuilder<NavigationBloc, NavigationState>(
             builder: (context, state) {
@@ -91,15 +93,43 @@ class _HomePageState extends State<HomePage> {
               return IconButton(
                 icon: Icon(
                   isDarkTheme ? AppFont.sun : AppFont.moon,
-                  color: isDarkTheme
-                      ? theme.primaryIconTheme.color
-                      : theme.iconTheme.color,
                 ),
                 onPressed: () {
                   _changeTheme(
                       context, isDarkTheme ? ThemeType.LIGHT : ThemeType.DARK);
                 },
               );
+            },
+          ),
+          PopupMenuButton<Choice>(
+            onSelected: (choice) async {
+              switch (choice.title) {
+                case "Share":
+                  Utils.launchTo(
+                      "https://play.google.com/store/apps/details?id=com.thealphamerc.flutter_spacexopedia");
+                  break;
+                case "About":
+                  break;
+                case "License":
+                  showLicensePage(
+                      context: context,
+                      applicationName: "Spacexopedia",
+                      applicationVersion: "1.0.0",
+                      useRootNavigator: false,
+                      applicationLegalese: "By TheAlphamerc");
+
+                  break;
+
+                default:
+              }
+            },
+            itemBuilder: (BuildContext context) {
+              return choices.map((Choice choice) {
+                return PopupMenuItem<Choice>(
+                  value: choice,
+                  child: Text(choice.title),
+                );
+              }).toList();
             },
           ),
         ],
@@ -112,6 +142,46 @@ class _HomePageState extends State<HomePage> {
           }
           return getPage(pageindex);
         },
+      ),
+    );
+  }
+}
+
+class Choice {
+  const Choice({this.title, this.icon});
+
+  final IconData icon;
+  final String title;
+}
+
+const List<Choice> choices = const <Choice>[
+  const Choice(title: 'Share', icon: Icons.directions_car),
+  const Choice(title: 'About', icon: Icons.directions_railway),
+  const Choice(title: 'License', icon: Icons.directions_railway),
+];
+
+class ChoiceCard extends StatelessWidget {
+  const ChoiceCard({Key key, this.choice}) : super(key: key);
+
+  final Choice choice;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Card(
+      color: Colors.white,
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              choice.title,
+              style:
+                  TextStyle(fontSize: 20, color: theme.colorScheme.onSurface),
+            ),
+          ],
+        ),
       ),
     );
   }

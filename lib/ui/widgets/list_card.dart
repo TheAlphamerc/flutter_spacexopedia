@@ -47,15 +47,18 @@ class ListCard extends StatelessWidget {
       ),
       child: Container(
         color: theme.colorScheme.background.withAlpha(80),
-        child: Center(
-          child: Text(
-            "No Photo".toUpperCase(),
-            style: TextStyle(
-              color: Colors.black38,
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
+        padding: EdgeInsets.all(8),
+        child: Stack(
+          children: <Widget>[
+            Image.asset(
+              "assets/rocket_lauch.png",
+              height: 100,
             ),
-          ),
+            CircleAvatar(
+              radius: 50,
+              backgroundColor: theme.colorScheme.background.withAlpha(180),
+            )
+          ],
         ),
       ),
     );

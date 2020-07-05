@@ -45,7 +45,7 @@ class DragonDetail extends StatelessWidget {
                   title: Title(
                     color: theme.backgroundColor,
                     child: Text(model.name),
-                    title: "Title of screen",
+                    title: model.name,
                   ),
                   pinned: true,
                   stretch: true,

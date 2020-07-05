@@ -23,7 +23,7 @@ class RocketDetail extends StatelessWidget {
                   title: Title(
                     color: theme.backgroundColor,
                     child: Text(model.rocketName),
-                    title: "Title of screen",
+                    title: model.rocketName,
                   ),
                   pinned: true,
                   stretch: true,

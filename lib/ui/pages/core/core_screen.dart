@@ -34,10 +34,6 @@ class DragonCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           TitleValue(
-            title: "Status:",
-            value: model.getStatus(),
-          ),
-          TitleValue(
             title: "Mission:",
             value: model.missions.first.name,
           ),
@@ -46,8 +42,20 @@ class DragonCard extends StatelessWidget {
             value: model.coreSerial,
           ),
           TitleValue(
-            title: "First flight date:",
+            title: "Original Launch date:",
             value: Utils.toformattedDate(model.originalLaunch),
+          ),
+          TitleValue(
+            title: "Status:",
+            value: model.getStatus(),
+          ),
+          TitleValue(
+            title: "Reuse count:",
+            value: model.reuseCount.toString(),
+          ),
+          TitleValue(
+            title: "Water landing:",
+            value: model.waterLanding ? "Yes" : "No",
           ),
         ],
       ).hP16,
