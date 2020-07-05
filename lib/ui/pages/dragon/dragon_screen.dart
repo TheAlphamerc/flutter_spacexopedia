@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spacexopedia/bloc/dragon/dragon_model.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
-import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
-import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 import 'package:flutter_spacexopedia/ui/widgets/list_card.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_text.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_value.dart';
 
 class DragonScreen extends StatelessWidget {
   final List<DragonModel> dragonList;
@@ -27,29 +27,25 @@ class DragonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ListCard(
       imagePath: model.flickrImages?.first,
       bodyContent: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Text(
-            model.name,
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleText(model.name, fontSize:14),
+          TitleValue(
+            title: "Rocket Id:",
+            value: "${model.id}",
           ),
-          Text(
-            "Rocket Id: ${model.id}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "First flight date:",
+            value: Utils.toformattedDate(model.firstFlight),
           ),
-          Text(
-            "First flight date: ${Utils.toformattedDate(model.firstFlight)}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "Type:",
+            value: model.type,
           ),
-          Text(
-            "Type: ${model.type}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
-          )
         ],
       ),
     );

@@ -66,6 +66,16 @@ class CoreModel {
         "water_landing": waterLanding == null ? null : waterLanding,
         "details": details == null ? null : details,
     };
+
+  String getStatus(){
+    switch (status) {
+      case Status.ACTIVE: return "Active";
+      case Status.INACTIVE: return "InActive";
+      case Status.LOST: return "Lost";
+      case Status.UNKNOWN: return "Unknown";
+      default:return "Unknown";
+    }
+  }
 }
 
 class Mission {

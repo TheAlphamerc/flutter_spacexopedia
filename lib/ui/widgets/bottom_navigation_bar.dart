@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spacexopedia/bloc/navigation/bloc.dart';
 import 'package:flutter_spacexopedia/helper/app_font.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SBottomNavigationBar extends StatelessWidget {
   const SBottomNavigationBar({Key key}) : super(key: key);
@@ -21,11 +22,13 @@ class SBottomNavigationBar extends StatelessWidget {
           unselectedIconTheme:
               IconThemeData(color: theme.colorScheme.onPrimary),
           type: BottomNavigationBarType.fixed,
-          unselectedLabelStyle: TextStyle(
-              color: theme.colorScheme.onPrimary, fontWeight: FontWeight.bold),
+          unselectedLabelStyle:
+              TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           onTap: (index) {
             bloc.add(IndexSelected(index));
           },
+          showUnselectedLabels: false,
+          showSelectedLabels: true,
           currentIndex: pageindex,
           items: [
             BottomNavigationBarItem(

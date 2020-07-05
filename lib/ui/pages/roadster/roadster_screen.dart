@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spacexopedia/bloc/roadster/roadster_model.dart';
-import 'package:flutter_spacexopedia/ui/widgets/image_slider.dart';
-import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_text.dart';
+import 'package:flutter_spacexopedia/ui/widgets/image_slider.dart';
+import 'package:flutter_spacexopedia/bloc/roadster/roadster_model.dart';
 
 class RoadsterScreen extends StatelessWidget {
   final RoadsterModel model;
@@ -10,7 +11,6 @@ class RoadsterScreen extends StatelessWidget {
   const RoadsterScreen({Key key, this.model}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return Container(
       child: SingleChildScrollView(
         child: Column(
@@ -18,23 +18,9 @@ class RoadsterScreen extends StatelessWidget {
             PhotoPageView(
               imageList: model.flickrImages,
             ),
-            Text(
-              model.name,
-              style: Theme.of(context)
-                  .typography
-                  .dense
-                  .headline5
-                  .copyWith(color: theme.primaryTextTheme.bodyText1.color),
-            ).vP8,
-            Text(
-              model.details,
-              style: Theme.of(context)
-                  .typography
-                  .black
-                  .headline5
-                  .copyWith(color: theme.primaryTextTheme.bodyText1.color),
-              textAlign: TextAlign.justify,
-            ).p(8),
+            TitleText(model.name, fontSize:20).vP8,
+            TitleText(model.details, fontSize:14, textAlign: TextAlign.justify, fontWeight: FontWeight.w400,).pO(bottom: 8,left:8,right:8),
+            Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -42,16 +28,17 @@ class RoadsterScreen extends StatelessWidget {
                   onPressed: () {
                     launch(model.wikipedia);
                   },
-                  child: Text("Wiki"),
+                  child: TitleText("Wiki", fontSize:16),
                 ),
                 RaisedButton(
                   onPressed: () {
                     launch(model.video);
                   },
-                  child: Text("Video"),
+                  child: TitleText("Video", fontSize:16),
                 ),
               ],
             ),
+            Divider(),
             _RodsterListTile(
                 title: "Distance", value: model.earthDistanceKm.toString()),
             _RodsterListTile(
@@ -90,7 +77,7 @@ class RoadsterScreen extends StatelessWidget {
                 title: "Mars Distance(Km)",
                 value: model.marsDistanceKm.toString()),
             _RodsterListTile(
-                title: "Earth Distance(Mi)",
+                title: "Mars Distance(Mi)",
                 value: model.marsDistanceMi.toString()),
           ],
         ),
@@ -105,7 +92,6 @@ class _RodsterListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final theme = Theme.of(context);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       child: Column(
@@ -113,21 +99,14 @@ class _RodsterListTile extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
+              TitleText(
                 title,
-                style: Theme.of(context)
-                    .typography
-                    .tall
-                    .headline6
-                    .copyWith(color: theme.primaryTextTheme.bodyText1.color),
+                fontSize: 16,
               ),
-              Text(
+              TitleText(
                 value,
-                style: Theme.of(context)
-                    .typography
-                    .englishLike
-                    .bodyText2
-                    .copyWith(color: theme.primaryTextTheme.bodyText1.color),
+                fontSize: 14,
+                fontWeight: FontWeight.w400
               ),
             ],
           ),

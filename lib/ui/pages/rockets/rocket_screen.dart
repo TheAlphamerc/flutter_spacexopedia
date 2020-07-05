@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spacexopedia/bloc/rocket/rocket_model.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
-import 'package:flutter_spacexopedia/ui/widgets/customWidgets.dart';
+import 'package:flutter_spacexopedia/ui/pages/rockets/rocket_detail.dart';
 import 'package:flutter_spacexopedia/ui/widgets/list_card.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_text.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_value.dart';
 
 class RocketScreen extends StatelessWidget {
   final List<RocketModel> rockets;
@@ -25,29 +27,28 @@ class RocketCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ListCard(
       imagePath: model.flickrImages.first,
+      onPressed: () {
+        Navigator.push(context,MaterialPageRoute(builder: (_) => RocketDetail(model: model,)));
+      },
       bodyContent: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            model.rocketName,
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleText(model.rocketName, fontSize:14),
+          TitleValue(
+            title: "Rocket Id:",
+            value: model.rocketId,
           ),
-          Text(
-            "Rocket Id: ${model.rocketId}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "First flight date:",
+            value: Utils.toformattedDate(model.firstFlight),
           ),
-          Text(
-            "First flight date: ${Utils.toformattedDate(model.firstFlight)}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "company:",
+            value: model.company,
           ),
-          Text(
-            "company: ${model.company}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
-          )
         ],
       ),
     );

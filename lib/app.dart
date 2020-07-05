@@ -5,6 +5,7 @@ import 'package:flutter_spacexopedia/bloc/navigation/navigation_bloc.dart';
 import 'package:flutter_spacexopedia/resources/repository/launch_repository.dart';
 import 'package:flutter_spacexopedia/ui/theme/custom_theme.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SpaceApp extends StatefulWidget {
   final Widget home;
@@ -82,7 +83,9 @@ class _AppState extends State<SpaceApp> {
         const Locale('en'),
         const Locale('ar'),
       ],
-      theme: CustomTheme.of(context),
+      theme: CustomTheme.of(context).copyWith(
+        textTheme: GoogleFonts.montserratTextTheme()
+      ),
       // home: widget.home,
       home: MultiBlocProvider(
         providers: [

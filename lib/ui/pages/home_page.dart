@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
               pageindex = state.index;
             }
             return Title(
-              color: theme.textTheme.bodyText1.color,
+              color: theme.colorScheme.onSurface,
               child: Text(_getPageName(pageindex)),
               title: "Title of screen",
             );

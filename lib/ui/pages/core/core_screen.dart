@@ -3,6 +3,7 @@ import 'package:flutter_spacexopedia/bloc/core/core_model.dart';
 import 'package:flutter_spacexopedia/helper/utils.dart';
 import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
 import 'package:flutter_spacexopedia/ui/widgets/list_card.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_value.dart';
 
 class CoreScreen extends StatelessWidget {
   final List<CoreModel> list;
@@ -26,29 +27,28 @@ class DragonCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return ListCard(
       hideImage: true,
       bodyContent: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          Text(
-            "Core serial: ${model.coreSerial}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "Status:",
+            value: model.getStatus(),
           ),
-          Text(
-            "Status: ${model.status}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "Mission:",
+            value: model.missions.first.name,
           ),
-          Text(
-            "First flight date: ${Utils.toformattedDate(model.originalLaunch)}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
+          TitleValue(
+            title: "Core serial:",
+            value: model.coreSerial,
           ),
-          Text(
-            "Mission: ${model.missions.first.name}",
-            style: TextStyle(color: theme.textTheme.bodyText1.color),
-          )
+          TitleValue(
+            title: "First flight date:",
+            value: Utils.toformattedDate(model.originalLaunch),
+          ),
         ],
       ).hP16,
     );

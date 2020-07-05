@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
-import 'package:flutter_spacexopedia/helper/utils.dart';
-import 'package:flutter_spacexopedia/ui/pages/launch/widgets/youtube_player.dart';
-import 'package:flutter_spacexopedia/ui/theme/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_spacexopedia/helper/utils.dart';
+import 'package:flutter_spacexopedia/ui/theme/theme.dart';
+import 'package:flutter_spacexopedia/bloc/launches/bloc.dart';
+import 'package:flutter_spacexopedia/ui/theme/extentions.dart';
+import 'package:flutter_spacexopedia/ui/pages/launch/widgets/youtube_player.dart';
+import 'package:flutter_spacexopedia/ui/widgets/title_text.dart';
 
 class LaunchDetail extends StatelessWidget {
   const LaunchDetail({Key key, this.model}) : super(key: key);
   final Launch model;
- 
 
   Widget _links(
     String title,
@@ -38,7 +39,7 @@ class LaunchDetail extends StatelessWidget {
       height: 50,
       width: AppTheme.fullWidth(context),
       color: theme.colorScheme.primary.withAlpha(30),
-      child: Text(title, style: TextStyle(fontWeight: FontWeight.bold, fontSize:15)),
+      child: TitleText(title, fontSize: 16),
     );
   }
 
@@ -53,7 +54,7 @@ class LaunchDetail extends StatelessWidget {
               slivers: <Widget>[
                 SliverAppBar(
                   title: Title(
-                    color: theme.textTheme.bodyText1.color,
+                    color: theme.backgroundColor,
                     child: Text(model.missionName),
                     title: "Title of screen",
                   ),
@@ -69,24 +70,29 @@ class LaunchDetail extends StatelessWidget {
                     model.details == null
                         ? SizedBox.shrink()
                         : ListTile(
-                            title: Text("Description",style:theme.textTheme.headline6.copyWith(fontSize: 15),),
-                            subtitle: Text(
+                            title: TitleText("Description", fontSize: 15),
+                            subtitle: TitleText(
                               model.details ?? "",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
                               textAlign: TextAlign.justify,
-                            ),
+                            ).vP8,
                           ),
-                    SizedBox(height: model.details == null ? 0 : 16),
+                    // SizedBox(height: model.details == null ? 0 : 16),
                     Divider(height: 0),
                     _ListTile("Flight no", "#${model.flightNumber}"),
                     Divider(height: 0),
-                    _ListTile("Launch date",
-                        Utils.toformattedDate2(model.launchDateLocal)),
+                    _ListTile(
+                      "Launch date",
+                      Utils.toformattedDate2(model.launchDateLocal),
+                    ),
                     Divider(height: 0),
                     _ListTile(
-                        "Success",
-                        model.launchSuccess == null
-                            ? "N/A"
-                            : model.launchSuccess ? "Yes" : "False"),
+                      "Success",
+                      model.launchSuccess == null
+                          ? "N/A"
+                          : model.launchSuccess ? "Yes" : "False",
+                    ),
                     Divider(height: 0),
                     _ListTile("Location", model.launchSite.siteName),
                     Divider(height: 0),
@@ -95,64 +101,82 @@ class LaunchDetail extends StatelessWidget {
 
                     /// Core
                     _heading(context, "Core #1", theme),
-                    _ListTile("Serial",
-                        model.rocket.firstStage.cores.first.coreSerial),
+                    _ListTile(
+                      "Serial",
+                      model.rocket.firstStage.cores.first.coreSerial,
+                    ),
                     Divider(height: 0),
-                    _ListTile("Block",
-                        model.rocket.firstStage.cores.first.block.toString()),
+                    _ListTile(
+                      "Block",
+                      model.rocket.firstStage.cores.first.block.toString(),
+                    ),
                     Divider(height: 0),
                     _ListTile("Flight number", "#${model.flightNumber}"),
                     Divider(height: 0),
                     _ListTile(
-                        "Resued",
-                        model.rocket.firstStage.cores.first.reused == null
-                            ? "N/A"
-                            : model.rocket.firstStage.cores.first.reused
-                                ? "Yes"
-                                : "No"),
-                    Divider(height: 0),
-                    _ListTile("Landing type",
-                        model.rocket.firstStage.cores.first.landingType),
-                    Divider(height: 0),
-                    _ListTile("Landing vehicle",
-                        model.rocket.firstStage.cores.first.landingVehicle),
+                      "Resued",
+                      model.rocket.firstStage.cores.first.reused == null
+                          ? "N/A"
+                          : model.rocket.firstStage.cores.first.reused
+                              ? "Yes"
+                              : "No",
+                    ),
                     Divider(height: 0),
                     _ListTile(
-                        "Landing Sucess",
-                        model.rocket.firstStage.cores.first.landSuccess == null
-                            ? "N/A"
-                            : model.rocket.firstStage.cores.first.landSuccess
-                                ? "Yes"
-                                : "No"),
+                      "Landing type",
+                      model.rocket.firstStage.cores.first.landingType,
+                    ),
+                    Divider(height: 0),
+                    _ListTile(
+                      "Landing vehicle",
+                      model.rocket.firstStage.cores.first.landingVehicle,
+                    ),
+                    Divider(height: 0),
+                    _ListTile(
+                      "Landing Sucess",
+                      model.rocket.firstStage.cores.first.landSuccess == null
+                          ? "N/A"
+                          : model.rocket.firstStage.cores.first.landSuccess
+                              ? "Yes"
+                              : "No",
+                    ),
 
                     /// Payload
                     _heading(
-                        context,
-                        "Payload: ${model.rocket.secondStage.payloads.first.payloadId}",
-                        theme),
+                      context,
+                      "Payload: ${model.rocket.secondStage.payloads.first.payloadId}",
+                      theme,
+                    ),
                     _ListTile(
-                        "Customers",
-                        model
-                            .rocket.secondStage.payloads.first.customers.first),
-                    Divider(height: 0),
-                    _ListTile("Nationality",
-                        model.rocket.secondStage.payloads.first.nationality),
-                    Divider(height: 0),
-                    _ListTile("Manufacturer",
-                        model.rocket.secondStage.payloads.first.manufacturer),
+                      "Customers",
+                      model.rocket.secondStage.payloads.first.customers.first,
+                    ),
                     Divider(height: 0),
                     _ListTile(
-                        "Mass",
-                        model.rocket.secondStage.payloads.first.payloadMassKg ==
-                                null
-                            ? "N/A"
-                            : model.rocket.secondStage.payloads.first
-                                    .payloadMassKg
-                                    .toString() +
-                                " Kg"),
+                      "Nationality",
+                      model.rocket.secondStage.payloads.first.nationality,
+                    ),
                     Divider(height: 0),
                     _ListTile(
-                        "Orbit", model.rocket.secondStage.payloads.first.orbit),
+                      "Manufacturer",
+                      model.rocket.secondStage.payloads.first.manufacturer,
+                    ),
+                    Divider(height: 0),
+                    _ListTile(
+                      "Mass",
+                      model.rocket.secondStage.payloads.first.payloadMassKg ==
+                              null
+                          ? "N/A"
+                          : model.rocket.secondStage.payloads.first
+                                  .payloadMassKg
+                                  .toString() +
+                              " Kg",
+                    ),
+                    Divider(height: 0),
+                    _ListTile(
+                      "Orbit",
+                      model.rocket.secondStage.payloads.first.orbit,
+                    ),
                     Divider(height: 0),
 
                     /// Link
@@ -185,13 +209,14 @@ class LaunchDetail extends StatelessWidget {
 }
 
 class _ListTile extends StatelessWidget {
-  const _ListTile( this.title, this.value,{Key key,this.onPressed}) : super(key: key);
+  const _ListTile(this.title, this.value, {Key key, this.onPressed})
+      : super(key: key);
   final String title;
   final String value;
-  final  Function onPressed;
+  final Function onPressed;
 
-   Widget _rowTile(String title, String value,
-      { Function onPressed,ThemeData theme}) {
+  Widget _rowTile(String title, String value,
+      {Function onPressed, ThemeData theme}) {
     if (value == null) {
       value = "N/A";
     }
@@ -200,9 +225,13 @@ class _ListTile extends StatelessWidget {
           left: 16, top: 4, bottom: 4, right: onPressed == null ? 16 : 0),
       title: Row(
         children: <Widget>[
-          Text(title,style:theme.textTheme.headline6.copyWith(fontSize: 14)),
+          Text(title,
+              style: theme.textTheme.headline6
+                  .copyWith(fontSize: 14, color: theme.colorScheme.onSurface)),
           Spacer(),
-          Text(value,style:theme.textTheme.bodyText1.copyWith(fontSize: 14)),
+          Text(value,
+              style: theme.textTheme.headline4
+                  .copyWith(fontSize: 14, color: theme.colorScheme.onSurface)),
           onPressed != null
               ? IconButton(
                   icon: Icon(Icons.keyboard_arrow_right),
@@ -213,9 +242,10 @@ class _ListTile extends StatelessWidget {
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return _rowTile(title, value, onPressed:onPressed,theme:theme);
+    return _rowTile(title, value, onPressed: onPressed, theme: theme);
   }
 }
