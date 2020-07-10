@@ -12,6 +12,9 @@ An unofficial SpaceX app powered by the [SpaceX API by r-spacex](https://github.
 * Dragon capsule catalogue: type, diameter, height, weight, capacity,  payload.
 * Core & capsules details: more information about each core & capsules launched.
 
+## Download App
+<a href="https://play.google.com/store/apps/details?id=com.thealphamerc.flutter_spacexopedia"><img src="https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png" width="200"></img></a>
+
 
 ## Dependencies
 <details>
