@@ -170,4 +170,8 @@ Rocket Detail         |  Dragons             |   Dragon Detail     | Cores
 
 > If you found this project helpful or you learned something from the source code and want to thank me, consider buying me a cup of :coffee:
 >
-> * [PayPal](https://paypal.me/shubhamsinghchahar/)
+> * [PayPal](https://paypal.me/TheAlphamerc/)
+
+## Visitors Count
+
+<img align="left" src = "https://profile-counter.glitch.me/flutter_spacexopedia/count.svg" alt ="Loading">
